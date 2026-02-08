@@ -1,0 +1,52 @@
+[gd_scene format=3 uid="uid://dv3iw0uryvbd2"]
+
+[ext_resource type="Script" uid="uid://cdoll5ahewucw" path="res://Scenes/Game/GameWorld.gd" id="1_game"]
+[ext_resource type="Script" uid="uid://fktn3l8m4ywv" path="res://Global/Classes/World/Manager/WorldManager.gd" id="2_wm"]
+[ext_resource type="PackedScene" uid="uid://cefmysmoajiho" path="res://Levels/Level1.tscn" id="3_3yv07"]
+[ext_resource type="PackedScene" uid="uid://dxwftakvn22th" path="res://Scenes/UI/HUD.tscn" id="3_hud"]
+[ext_resource type="PackedScene" path="res://Scenes/UI/PauseMenu.tscn" id="4_pause"]
+[ext_resource type="PackedScene" uid="uid://cs30xy87ksc3a" path="res://player.tscn" id="5_player"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_sky"]
+sky_top_color = Color(0.35, 0.5, 0.75, 1)
+sky_horizon_color = Color(0.64, 0.67, 0.73, 1)
+ground_bottom_color = Color(0.12, 0.12, 0.13, 1)
+ground_horizon_color = Color(0.64, 0.67, 0.73, 1)
+
+[sub_resource type="Sky" id="Sky_main"]
+sky_material = SubResource("ProceduralSkyMaterial_sky")
+
+[sub_resource type="Environment" id="Environment_main"]
+background_mode = 2
+sky = SubResource("Sky_main")
+ambient_light_color = Color(0.6, 0.65, 0.7, 1)
+ambient_light_energy = 0.5
+tonemap_mode = 2
+glow_enabled = true
+fog_enabled = true
+fog_light_color = Color(0.52, 0.55, 0.6, 1)
+fog_density = 0.0005
+
+[node name="GameWorld" type="Node3D" unique_id=484628261]
+script = ExtResource("1_game")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=121193803]
+environment = SubResource("Environment_main")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=568717653]
+transform = Transform3D(0.866, -0.354, 0.354, 0, 0.707, 0.707, -0.5, -0.612, 0.612, 0, 20, 0)
+light_color = Color(1, 0.95, 0.85, 1)
+light_energy = 1.2
+shadow_enabled = true
+shadow_opacity = 0.8
+
+[node name="WorldManager" type="Node3D" parent="." unique_id=228918090]
+script = ExtResource("2_wm")
+levels = Array[PackedScene]([ExtResource("3_3yv07")])
+player_scene = ExtResource("5_player")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=559670287]
+
+[node name="HUD" parent="CanvasLayer" unique_id=1120931139 instance=ExtResource("3_hud")]
+
+[node name="PauseMenu" parent="CanvasLayer" unique_id=1152884392 instance=ExtResource("4_pause")]

@@ -1,0 +1,224 @@
+[gd_scene load_steps=2 format=3 uid="uid://multiplayer_menu"]
+
+[ext_resource type="Script" path="res://Scenes/UI/MultiplayerMenu.gd" id="1_mp"]
+
+[node name="MultiplayerMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_mp")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.08, 0.08, 0.12, 1)
+
+[node name="MainPanel" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -150.0
+offset_right = 200.0
+offset_bottom = 150.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MainPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainPanel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="TitleLabel" type="Label" parent="MainPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 0.7, 0.2, 1)
+theme_override_font_sizes/font_size = 28
+text = "Multiplayer"
+horizontal_alignment = 1
+
+[node name="Spacer" type="Control" parent="MainPanel/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="BtnJoin" type="Button" parent="MainPanel/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Join Server"
+
+[node name="BtnHost" type="Button" parent="MainPanel/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Host Server"
+
+[node name="BtnBack" type="Button" parent="MainPanel/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Back"
+
+[node name="JoinPanel" type="PanelContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -300.0
+offset_top = -200.0
+offset_right = 300.0
+offset_bottom = 200.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="JoinPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="JoinPanel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="TitleLabel" type="Label" parent="JoinPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Join Server"
+horizontal_alignment = 1
+
+[node name="IPLabel" type="Label" parent="JoinPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Server IP:"
+
+[node name="IPInput" type="LineEdit" parent="JoinPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+placeholder_text = "localhost or 192.168.1.x"
+
+[node name="PortLabel" type="Label" parent="JoinPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Port:"
+
+[node name="PortInput" type="LineEdit" parent="JoinPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "45456"
+
+[node name="LANLabel" type="Label" parent="JoinPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "LAN Servers:"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="JoinPanel/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+
+[node name="ServerList" type="VBoxContainer" parent="JoinPanel/MarginContainer/VBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ButtonsRow" type="HBoxContainer" parent="JoinPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="BtnBack" type="Button" parent="JoinPanel/MarginContainer/VBoxContainer/ButtonsRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Back"
+
+[node name="BtnConnect" type="Button" parent="JoinPanel/MarginContainer/VBoxContainer/ButtonsRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Connect"
+
+[node name="HostPanel" type="PanelContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -250.0
+offset_top = -150.0
+offset_right = 250.0
+offset_bottom = 150.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="HostPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HostPanel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="TitleLabel" type="Label" parent="HostPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Host Server"
+horizontal_alignment = 1
+
+[node name="NameLabel" type="Label" parent="HostPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Server Name:"
+
+[node name="ServerNameInput" type="LineEdit" parent="HostPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+placeholder_text = "My Swordfall Server"
+
+[node name="PortLabel" type="Label" parent="HostPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Port:"
+
+[node name="PortInput" type="LineEdit" parent="HostPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "45456"
+
+[node name="ButtonsRow" type="HBoxContainer" parent="HostPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="BtnBack" type="Button" parent="HostPanel/MarginContainer/VBoxContainer/ButtonsRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Back"
+
+[node name="BtnStartServer" type="Button" parent="HostPanel/MarginContainer/VBoxContainer/ButtonsRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Start Server"
+
+[node name="StatusLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -200.0
+offset_top = -50.0
+offset_right = 200.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 0
+horizontal_alignment = 1

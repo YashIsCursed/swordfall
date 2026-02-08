@@ -1,0 +1,122 @@
+[gd_scene format=3 uid="uid://dxwftakvn22th"]
+
+[ext_resource type="Script" uid="uid://dgbjr47rqxvv2" path="res://Scenes/UI/HUD.gd" id="1_hud"]
+
+[node name="HUD" type="Control" unique_id=1905494357]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_hud")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=911519117]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=1861547809]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="TopRow" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=719868672]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="HealthBar" type="ProgressBar" parent="MarginContainer/VBoxContainer/TopRow" unique_id=768637382]
+modulate = Color(0.98394233, 0.20128128, 0.40932038, 1)
+custom_minimum_size = Vector2(200, 25)
+layout_mode = 2
+max_value = 16.0
+value = 16.0
+show_percentage = false
+
+[node name="HealthLabel" type="Label" parent="MarginContainer/VBoxContainer/TopRow" unique_id=1471623227]
+layout_mode = 2
+text = "16 / 16"
+
+[node name="Spacer" type="Control" parent="MarginContainer/VBoxContainer/TopRow" unique_id=1928876638]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="LevelLabel" type="Label" parent="MarginContainer/VBoxContainer/TopRow" unique_id=1416730440]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 0.7, 0.2, 1)
+theme_override_font_sizes/font_size = 18
+text = "Level 1"
+
+[node name="Crosshair" type="Label" parent="." unique_id=82505432]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -10.0
+offset_top = -15.0
+offset_right = 10.0
+offset_bottom = 15.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 24
+text = "+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="InteractionPrompt" type="Label" parent="." unique_id=157522712]
+visible = false
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -150.0
+offset_top = -80.0
+offset_right = 150.0
+offset_bottom = -50.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 18
+text = "[E] Interact"
+horizontal_alignment = 1
+
+[node name="DeathOverlay" type="ColorRect" parent="." unique_id=1393786412]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.3, 0, 0, 0.8)
+
+[node name="RespawnLabel" type="Label" parent="DeathOverlay" unique_id=1089895799]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -50.0
+offset_right = 200.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 0.3, 0.3, 1)
+theme_override_font_sizes/font_size = 36
+text = "You Died
+Respawning..."
+horizontal_alignment = 1
+vertical_alignment = 1
