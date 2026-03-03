@@ -59,6 +59,10 @@ func _on_mob_area_exited(body: Node3D) -> void:
 		print("MobArea: Player exited!")
 
 func spawn_mobs() -> void:
+	# In multiplayer, only server spawns mobs
+	if GameData.is_multiplayer and not multiplayer.is_server():
+		return
+	
 	# Load default mob if no mobs configured
 	var scenes_to_use = mob_scenes
 	if scenes_to_use.is_empty():
@@ -73,8 +77,13 @@ func spawn_mobs() -> void:
 	var mobs_to_spawn = min(spawn_amount, max_mobs_alive - spawned_mobs.size())
 	print("MobArea: Spawning ", mobs_to_spawn, " mobs")
 	
+	# Use seeded random for consistent spawns in multiplayer
+	var spawn_seed = hash(name + str(Time.get_ticks_msec()))
+	seed(spawn_seed)
+	
 	for i in range(mobs_to_spawn):
-		var mob_scene = scenes_to_use[randi() % scenes_to_use.size()]
+		var scene_index = randi() % scenes_to_use.size()
+		var mob_scene = scenes_to_use[scene_index]
 		if mob_scene:
 			var mob_instance = mob_scene.instantiate()
 			if mob_instance:
@@ -104,16 +113,57 @@ func spawn_mobs() -> void:
 	mobs_spawned.emit()
 
 func _on_mob_died(mob: Node3D) -> void:
+	print("MobArea: Mob died - ", mob.name if mob else "unknown")
 	spawned_mobs.erase(mob)
 	
 	if spawned_mobs.is_empty():
 		all_mobs_defeated.emit()
-		
-		# Respawn after delay if not one-time
-		if not one_time_spawn and is_player_in:
-			await get_tree().create_timer(respawn_delay).timeout
-			if is_player_in:
-				spawn_mobs()
+	
+	# Respawn replacement mob after delay (if not one-time spawn)
+	if not one_time_spawn and is_player_in:
+		_schedule_respawn()
+
+func _schedule_respawn() -> void:
+	await get_tree().create_timer(respawn_delay).timeout
+	# Only respawn if player is still in area and we're below max mobs
+	if is_player_in and is_active and spawned_mobs.size() < max_mobs_alive:
+		_spawn_single_mob()
+
+func _spawn_single_mob() -> void:
+	# Load default mob if no mobs configured
+	var scenes_to_use = mob_scenes
+	if scenes_to_use.is_empty():
+		var default_mob = load(DEFAULT_MOB_PATH)
+		if default_mob:
+			scenes_to_use = [default_mob]
+		else:
+			return
+	
+	var mob_scene = scenes_to_use[randi() % scenes_to_use.size()]
+	if mob_scene:
+		var mob_instance = mob_scene.instantiate()
+		if mob_instance:
+			# Random position within spawn radius
+			var spawn_offset = Vector3(
+				randf_range(-spawn_radius, spawn_radius),
+				0,
+				randf_range(-spawn_radius, spawn_radius)
+			)
+			
+			# Add to scene tree
+			get_parent().add_child(mob_instance)
+			mob_instance.global_position = global_position + spawn_offset
+			
+			# Set spawn position if mob has it
+			if "spawn_position" in mob_instance:
+				mob_instance.spawn_position = mob_instance.global_position
+			
+			# Connect death signal
+			if mob_instance.has_signal("on_death"):
+				mob_instance.on_death.connect(_on_mob_died.bind(mob_instance))
+			
+			spawned_mobs.append(mob_instance)
+			print("MobArea: Respawned mob at ", mob_instance.global_position)
 
 func activate() -> void:
 	is_active = true

@@ -5,11 +5,55 @@ A 3D Action RPG game with multiplayer support, developed in Godot 4.6.
 ## Features
 
 - **3D Action RPG Gameplay** - First-person combat with sword attacks
+- **5 Unique Levels** - Progressive difficulty from Forest to Boss Arena
+- **7 Enemy Types** - From simple goblins to the Demon Lord boss
 - **Single Player Mode** - Create and manage game worlds with save/load functionality
 - **Multiplayer Support** - Host LAN games or join others using ENet
-- **Modular Level System** - Easy to add new levels, mobs, and content
+- **Loading Screen** - Visual progress indicators with freeze detection
 - **Checkpoint System** - Auto-save progress at checkpoints
 - **Combat System** - Hitbox/Hurtbox based damage with attack cooldowns
+
+---
+
+## 🗺️ Levels
+
+| # | Level | Theme | Difficulty | Enemies |
+|---|-------|-------|------------|---------|
+| 0 | **Forest Entrance** 🌲 | Bright outdoor forest | Easy | Goblin Scout |
+| 1 | **Cave Descent** 🕳️ | Dark underground cave | Medium | Cave Spider, Skeleton |
+| 2 | **Ancient Ruins** 🏛️ | Crumbling stone ruins | Medium-Hard | Orc, Wraith, Skeleton |
+| 3 | **Frozen Citadel** ❄️ | Icy fortress | Hard | Stone Golem, Wraith |
+| 4 | **Demon Throne** 👹 | Dark boss arena | BOSS | Orc, **Demon Lord** |
+
+---
+
+## 👹 Enemies
+
+| Enemy | Health | Damage | Speed | Behavior |
+|-------|--------|--------|-------|----------|
+| **Goblin Scout** 🧟 | 8 | 2 | Fast | Quick attacks, weak |
+| **Cave Spider** 🕷️ | 6 | 2 | Very Fast | Rapid attacks, fragile |
+| **Skeleton Warrior** 💀 | 12 | 3 | Medium | Balanced fighter |
+| **Orc Brute** 👹 | 20 | 5 | Slow | Tanky, heavy hits |
+| **Shadow Wraith** 👻 | 10 | 4 | Medium | Long detection, ethereal |
+| **Stone Golem** 🗿 | 35 | 8 | Very Slow | Mini-boss, devastating |
+| **Demon Lord** 😈 | **100** | **12** | Medium | **FINAL BOSS** |
+
+---
+
+## ⏳ Loading System
+
+The game features a professional loading screen with:
+- **Progress Bar** - Visual loading progress (0-100%)
+- **Status Messages** - Dynamic phase descriptions
+- **Rotating Tips** - Gameplay hints during loading
+- **Elapsed Time** - Shows time since loading started
+- **Freeze Detection** - Warning if loading takes >10 seconds
+- **Error Handling** - Clear error messages if loading fails
+
+This ensures users always know the game is loading (not crashed).
+
+---
 
 ## Project Structure
 
@@ -17,47 +61,65 @@ A 3D Action RPG game with multiplayer support, developed in Godot 4.6.
 swordfall-23/
 ├── Global/
 │   ├── Classes/
-│   │   ├── Entity/           # Base entity classes
-│   │   │   ├── Entity.gd     # Base class for all entities
-│   │   │   ├── EntityStats.gd # Stats resource (health, speed, etc.)
-│   │   │   ├── Player/       # Player-specific code
-│   │   │   └── Mobs/         # Mob AI and behavior
-│   │   ├── World/            # World management
-│   │   │   ├── World.gd      # World container
-│   │   │   ├── Level.gd      # Level class
-│   │   │   ├── Manager/      # WorldManager, LevelManager
-│   │   │   └── Wokers/       # World workers (SpawnPoint, CheckPoint, etc.)
-│   │   ├── MultiplayerManager/ # Networking (ENet)
-│   │   ├── Hitbox.gd         # Damage dealing area
-│   │   └── Hurtbox.gd        # Damage receiving area
+│   │   ├── Entity/                    # Base entity classes
+│   │   │   ├── Entity.gd              # Base class for all entities
+│   │   │   ├── EntityStats.gd         # Stats resource (health, speed, etc.)
+│   │   │   ├── Player/                # Player-specific code
+│   │   │   └── Mobs/                  # Mob AI and behavior
+│   │   │       ├── Mobs.gd            # Mob AI state machine
+│   │   │       └── MobsConfig.gd      # Mob registry & metadata
+│   │   ├── World/                     # World management
+│   │   │   ├── Level.gd               # Level class
+│   │   │   ├── LevelsConfig.gd        # Level registry & metadata
+│   │   │   ├── Manager/               # WorldManager, LevelManager
+│   │   │   └── Wokers/                # SpawnPoint, CheckPoint, etc.
+│   │   ├── MultiplayerManager/        # Networking (ENet)
+│   │   ├── Hitbox.gd                  # Damage dealing area
+│   │   └── Hurtbox.gd                 # Damage receiving area
 │   └── Scripts/
-│       ├── GameData.gd       # Autoload: Settings and world saves
-│       └── SceneManager.gd   # Autoload: Scene transitions
+│       ├── GameData.gd                # Autoload: Settings and world saves
+│       └── SceneManager.gd            # Autoload: Scene transitions + loading
 ├── Scenes/
-│   ├── UI/                   # All UI scenes
-│   │   ├── MainMenu.tscn     # Main menu (entry point)
+│   ├── UI/                            # All UI scenes
+│   │   ├── MainMenu.tscn
 │   │   ├── SinglePlayerMenu.tscn
 │   │   ├── MultiplayerMenu.tscn
 │   │   ├── SettingsMenu.tscn
 │   │   ├── PauseMenu.tscn
-│   │   └── HUD.tscn
-│   └── Game/
-│       └── GameWorld.tscn    # Main game scene
-├── Levels/
-│   ├── DemoLevel.gd          # Demo level script
-│   └── DemoLevel.tscn        # Demo level scene
-├── Assets/                   # 3D models and textures
-├── player.tscn               # Player scene
-├── mob1.tscn                 # Basic mob scene
-└── project.godot             # Project configuration
+│   │   ├── HUD.tscn
+│   │   ├── LoadingScreen.tscn         # NEW: Loading screen
+│   │   └── LoadingScreen.gd
+│   ├── Game/
+│   │   └── GameWorld.tscn             # Main game scene
+│   └── Entities/
+│       └── Mobs/                      # All mob scenes
+│           ├── Goblin.tscn
+│           ├── Skeleton.tscn
+│           ├── Orc.tscn
+│           ├── Spider.tscn
+│           ├── Wraith.tscn
+│           ├── Golem.tscn
+│           └── DemonLord.tscn         # BOSS
+├── Levels/                            # All level scenes
+│   ├── Level_ForestEntrance.tscn
+│   ├── Level_CaveDescent.tscn
+│   ├── Level_AncientRuins.tscn
+│   ├── Level_FrozenCitadel.tscn
+│   └── Level_DemonThrone.tscn         # BOSS LEVEL
+├── Assets/                            # 3D models and textures
+├── player.tscn                        # Player scene
+└── project.godot                      # Project configuration
 ```
+
+---
 
 ## Game Flow
 
 1. **Main Menu** → Select Single Player or Multiplayer
 2. **Single Player** → Create/Load World → Start Game
 3. **Multiplayer** → Host Server or Join by IP:Port
-4. **In Game**:
+4. **Loading Screen** → Shows progress while world loads
+5. **In Game**:
    - WASD to move, Space to jump, Shift to sprint
    - Left Click to attack
    - ESC to pause (can open game to LAN from here)
@@ -73,40 +135,24 @@ swordfall-23/
 | E | Interact |
 | ESC | Pause Menu |
 
+---
+
 ## Adding New Content
 
 ### Adding a New Level
 
-1. Create a new scene inheriting from `Level`
-2. Add floor, walls, and platforms
-3. Add a `SpawnPoint` marker
-4. Add `CheckPoint` markers for save points
-5. Add `MobArea` zones for enemies
-6. Add a `CompletionArea` to trigger level completion
-7. Register the level in WorldManager's `levels` array
+1. Create `.gd` file extending `Level` in `Levels/`
+2. Create `.tscn` scene with floor, walls, SpawnPoint, CheckPoint, MobArea, CompletionArea
+3. Register in `LevelsConfig.gd`
 
 ### Adding a New Mob
 
-1. Duplicate `mob1.tscn`
-2. Modify the `E_Stats` resource for different health/damage/speed
-3. Adjust the mesh and collision shapes
-4. Configure AI settings (detection_range, attack_range, etc.)
-5. Add to `MobArea.mob_scenes` array
+1. Create `.tscn` in `Scenes/Entities/Mobs/` using existing mob as template
+2. Configure E_Stats (health, speed, damage) and AI settings
+3. Register in `MobsConfig.gd`
+4. Add to level's MobArea
 
-## Autoloads
-
-- **GameData** - Player settings, world saves, game state
-- **SceneManager** - Scene loading and transitions
-- **MultiplayerManager** - ENet server/client management
-
-## Collision Layers
-
-1. **World** - Static geometry
-2. **Player** - Player character
-3. **Hitbox** - Damage dealing areas
-4. **Hurtbox** - Damage receiving areas
-5. **Mob** - Enemy characters
-6. **Interactable** - Interactive objects
+---
 
 ## Requirements
 
@@ -116,3 +162,4 @@ swordfall-23/
 ## License
 
 All rights reserved.
+

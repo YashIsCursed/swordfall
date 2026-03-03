@@ -17,10 +17,17 @@ var is_dead: bool = false
 var is_attacking: bool = false
 
 func _ready() -> void:
-	if not props:
+	# CRITICAL: Duplicate the props resource so each entity has its own stats
+	# Without this, all instances share the same health pool!
+	if props:
+		props = props.duplicate()
+	else:
 		props = E_Stats.new()
 		props.Name = "Entity"
 		props.ETId = randi()
+	
+	# Reset health to max for this new instance
+	props.reset_health()
 	
 	# Connect hurtbox damage signal
 	if hurtbox:

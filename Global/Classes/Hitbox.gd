@@ -4,8 +4,8 @@ class_name Hitbox
 
 signal hit_landed(target: Node3D)
 
-@export var damage: int = 2
-@export var knockback_force: float = 5.0
+@export var damage: int = 10
+@export var knockback_force: float = 10.0
 
 var is_active: bool = false
 

@@ -1,8 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://main_menu_scene"]
+[gd_scene format=3 uid="uid://b6v7iil3rmwwn"]
 
-[ext_resource type="Script" path="res://Scenes/UI/MainMenu.gd" id="1_main"]
+[ext_resource type="Script" uid="uid://do1f4mwsxm8kg" path="res://Scenes/UI/MainMenu.gd" id="1_main"]
+[ext_resource type="Texture2D" uid="uid://uqwlunl274cv" path="res://Assets/main screen.png" id="2_mjmdf"]
 
-[node name="MainMenu" type="Control"]
+[node name="MainMenu" type="Control" unique_id=1955290778]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -11,70 +12,63 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_main")
 
-[node name="Background" type="ColorRect" parent="."]
+[node name="Background" type="ColorRect" parent="." unique_id=1196331666]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 color = Color(0.08, 0.08, 0.12, 1)
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="MainScreen" type="Sprite2D" parent="." unique_id=165134725]
+position = Vector2(969.44446, 544)
+scale = Vector2(0.8441358, 0.8441358)
+texture = ExtResource("2_mjmdf")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=843807976]
 layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_left = 80.0
-offset_top = -200.0
-offset_right = 400.0
-offset_bottom = 200.0
+anchors_preset = -1
+anchor_left = 0.67800003
+anchor_top = 0.22100002
+anchor_right = 0.67800003
+anchor_bottom = 0.22100002
+offset_left = -4.76001
+offset_top = 54.319977
+offset_right = 353.24
+offset_bottom = 498.31998
+grow_horizontal = 0
 grow_vertical = 2
 theme_override_constants/separation = 20
+alignment = 1
 
-[node name="TitleLabel" type="Label" parent="VBoxContainer"]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.9, 0.7, 0.2, 1)
-theme_override_font_sizes/font_size = 64
-text = "SWORDFALL"
-
-[node name="SubtitleLabel" type="Label" parent="VBoxContainer"]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.6, 0.6, 0.6, 1)
-theme_override_font_sizes/font_size = 18
-text = "A 3D Action RPG Adventure"
-
-[node name="Spacer" type="Control" parent="VBoxContainer"]
-custom_minimum_size = Vector2(0, 40)
-layout_mode = 2
-
-[node name="ButtonsContainer" type="VBoxContainer" parent="VBoxContainer"]
-layout_mode = 2
-theme_override_constants/separation = 15
-
-[node name="BtnSinglePlayer" type="Button" parent="VBoxContainer/ButtonsContainer"]
-custom_minimum_size = Vector2(280, 55)
+[node name="BtnSinglePlayer" type="Button" parent="VBoxContainer" unique_id=1537151884]
+custom_minimum_size = Vector2(0, 88)
 layout_mode = 2
 theme_override_font_sizes/font_size = 22
-text = "Single Player"
+text = "
+"
 
-[node name="BtnMultiplayer" type="Button" parent="VBoxContainer/ButtonsContainer"]
-custom_minimum_size = Vector2(280, 55)
+[node name="BtnMultiplayer" type="Button" parent="VBoxContainer" unique_id=722333092]
+custom_minimum_size = Vector2(0, 88)
 layout_mode = 2
 theme_override_font_sizes/font_size = 22
-text = "Multiplayer"
 
-[node name="BtnSettings" type="Button" parent="VBoxContainer/ButtonsContainer"]
-custom_minimum_size = Vector2(280, 55)
+[node name="BtnSettings" type="Button" parent="VBoxContainer" unique_id=1101176667]
+custom_minimum_size = Vector2(0, 88)
 layout_mode = 2
 theme_override_font_sizes/font_size = 22
-text = "Settings"
+text = "
+"
 
-[node name="BtnQuit" type="Button" parent="VBoxContainer/ButtonsContainer"]
-custom_minimum_size = Vector2(280, 55)
+[node name="BtnQuit" type="Button" parent="VBoxContainer" unique_id=143674969]
+custom_minimum_size = Vector2(0, 88)
 layout_mode = 2
 theme_override_font_sizes/font_size = 22
-text = "Quit Game"
+text = "
+"
 
-[node name="VersionLabel" type="Label" parent="."]
+[node name="VersionLabel" type="Label" parent="." unique_id=1094199749]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0

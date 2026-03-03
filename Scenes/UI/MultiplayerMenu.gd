@@ -15,6 +15,7 @@ enum MenuState {
 
 # Join panel nodes - corrected paths
 @onready var join_panel: PanelContainer = $JoinPanel if has_node("JoinPanel") else null
+@onready var player_name_input: LineEdit = $JoinPanel/MarginContainer/VBoxContainer/PlayerNameInput if has_node("JoinPanel") else null
 @onready var ip_input: LineEdit = $JoinPanel/MarginContainer/VBoxContainer/IPInput if has_node("JoinPanel") else null
 @onready var port_input: LineEdit = $JoinPanel/MarginContainer/VBoxContainer/PortInput if has_node("JoinPanel") else null
 @onready var btn_connect: Button = $JoinPanel/MarginContainer/VBoxContainer/ButtonsRow/BtnConnect if has_node("JoinPanel") else null
@@ -31,6 +32,7 @@ enum MenuState {
 @onready var status_label: Label = $StatusLabel if has_node("StatusLabel") else null
 
 var current_state: MenuState = MenuState.MAIN
+var _name_input_created: bool = false
 
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
@@ -78,10 +80,44 @@ func _show_join_panel() -> void:
 	if host_panel:
 		host_panel.visible = false
 	
+	# Create name input if it doesn't exist
+	_ensure_name_input_exists()
+	
+	# Prefill with saved player name
+	if player_name_input:
+		player_name_input.text = GameData.player_name
+	
 	# Start LAN discovery
 	MultiplayerManager.start_lan_discovery()
 	_refresh_server_list()
 	_set_status("Searching for LAN servers...")
+
+func _ensure_name_input_exists() -> void:
+	if _name_input_created or not join_panel:
+		return
+	
+	# Try to find the VBoxContainer in the join panel
+	var vbox = join_panel.get_node_or_null("MarginContainer/VBoxContainer")
+	if not vbox:
+		return
+	
+	# Check if name input already exists
+	if not player_name_input:
+		# Create name label
+		var name_label = Label.new()
+		name_label.text = "Player Name:"
+		vbox.add_child(name_label)
+		vbox.move_child(name_label, 0) # Move to top
+		
+		# Create name input
+		player_name_input = LineEdit.new()
+		player_name_input.name = "PlayerNameInput"
+		player_name_input.placeholder_text = "Enter your name..."
+		player_name_input.text = GameData.player_name
+		vbox.add_child(player_name_input)
+		vbox.move_child(player_name_input, 1) # After label
+		
+		_name_input_created = true
 
 func _show_host_panel() -> void:
 	current_state = MenuState.HOST
@@ -101,6 +137,12 @@ func _show_host_panel() -> void:
 func _on_connect_pressed() -> void:
 	var ip = "localhost"
 	var port = MultiplayerManager.DEFAULT_PORT
+	
+	# Save player name before connecting
+	if player_name_input and not player_name_input.text.strip_edges().is_empty():
+		GameData.player_name = player_name_input.text.strip_edges()
+		GameData.save_settings()
+		print("MultiplayerMenu: Set player name to: ", GameData.player_name)
 	
 	if ip_input and not ip_input.text.strip_edges().is_empty():
 		ip = ip_input.text.strip_edges()

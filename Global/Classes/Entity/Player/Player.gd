@@ -141,18 +141,35 @@ func _on_death() -> void:
 	is_dead = true
 	print("Player " + props.Name + " died!")
 	
-	# Disable input
+	# Disable input and physics processing
 	set_physics_process(false)
+	set_process_unhandled_input(false)
 	
 	# Death animation/effect could go here
 	
 	# Let WorldManager handle respawn
 
 func respawn() -> void:
+	# Reset death state
 	is_dead = false
+	is_attacking = false
+	can_attack = true
+	
+	# Re-enable processing
 	set_physics_process(true)
+	set_process_unhandled_input(true)
+	
+	# Reset health
 	if props:
-		props.Health = props.MaxHealth
+		props.reset_health()
+	
+	# Restore mouse capture for local player
+	if is_local_player():
+		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+		if Cam:
+			Cam.current = true
+	
+	print("Player respawned!")
 
 func set_data() -> void:
 	if L_Name and props:

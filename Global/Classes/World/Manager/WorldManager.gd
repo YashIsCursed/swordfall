@@ -60,6 +60,14 @@ func start_game() -> void:
 		# Singleplayer
 		spawn_player()
 	
+	# Initialize HUD with current level info
+	await get_tree().process_frame
+	var current_level = level_manager.get_current_level()
+	if current_level:
+		var hud = get_hud()
+		if hud and hud.has_method("update_level"):
+			hud.update_level(current_level.level_name, start_index)
+	
 	game_started.emit()
 
 func spawn_player() -> void:
@@ -189,14 +197,20 @@ func _on_player_death() -> void:
 
 func respawn_player() -> void:
 	if current_player:
-		# Restore health
-		if current_player.props:
-			current_player.props.reset_health()
-		
-		# Position at checkpoint or spawn
+		# Position at checkpoint or spawn FIRST (before respawn resets state)
 		_position_player()
 		
+		# Call player's respawn method to reset all state
+		if current_player.has_method("respawn"):
+			current_player.respawn()
+		else:
+			# Fallback if respawn method missing
+			current_player.is_dead = false
+			if current_player.props:
+				current_player.props.reset_health()
+		
 		player_respawned.emit()
+		print("Player respawned at: ", current_player.global_position)
 
 func pause_game() -> void:
 	is_paused = true
@@ -216,14 +230,38 @@ func toggle_pause() -> void:
 	else:
 		pause_game()
 
+# Property to expose players dictionary for HUD
+var players: Dictionary:
+	get:
+		return _players
+
 func _on_level_changed(from_index: int, to_index: int) -> void:
 	GameData.current_level_index = to_index
 	GameData.save_current_world()
+	
+	# Update HUD with new level info
+	var current_level = level_manager.get_current_level()
+	if current_level:
+		var hud = get_hud()
+		if hud and hud.has_method("update_level"):
+			hud.update_level(current_level.level_name, to_index)
+			print("WorldManager: Updated HUD with level - ", current_level.level_name)
 	
 	# Reposition player at new level spawn
 	if current_player:
 		await get_tree().process_frame
 		_position_player()
+
+func get_hud() -> Control:
+	# Try to find HUD in scene tree
+	var hud = get_tree().get_first_node_in_group("hud")
+	if hud:
+		return hud
+	# Fallback: search for HUD node
+	hud = get_node_or_null("HUD")
+	if not hud:
+		hud = get_tree().current_scene.get_node_or_null("HUD")
+	return hud
 
 func _on_all_levels_completed() -> void:
 	print("Congratulations! All levels completed!")

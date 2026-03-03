@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://dnhcro63fdcs7" path="res://Global/Classes/World/Wokers/CompletionArea.gd" id="4_5g41i"]
 [ext_resource type="Script" uid="uid://d0vdt7ix7m4qe" path="res://Global/Classes/World/Wokers/MobArea.gd" id="5_7fl83"]
 [ext_resource type="PackedScene" uid="uid://c3n4w4q13fe3w" path="res://Scenes/Entities/Mobs/Zombie1.tscn" id="6_05pb0"]
+[ext_resource type="Script" uid="uid://ctxg5wm25jpin" path="res://Global/Classes/World/Wokers/VoidArea.gd" id="7_dl8mf"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_fhqol"]
 top_radius = 0.3
@@ -14,50 +15,64 @@ height = 0.3
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_iotdp"]
 albedo_color = Color(0.2, 0.8, 0.3, 1)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_iotdp"]
-size = Vector3(6, 5, 6)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nutv8"]
-albedo_color = Color(0.2, 0.8, 0.3, 1)
-
 [sub_resource type="BoxShape3D" id="BoxShape3D_nutv8"]
 size = Vector3(16.99121, 5.128418, 23.254883)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_xcayt"]
+size = Vector3(144.66174, 8.278717, 27.36621)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_05pb0"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_dl8mf"]
+size = Vector3(6, 2.77063, 24.994385)
 
 [node name="Level1" type="Node3D" unique_id=793073331]
 script = ExtResource("1_w77jt")
 
 [node name="Environment" parent="." unique_id=1614952162 instance=ExtResource("2_3anf8")]
 
-[node name="SpawnPoint2" type="Marker3D" parent="." unique_id=411322876]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -75.10454, 5.6202364, -0.39658928)
+[node name="SpawnPoint" type="Marker3D" parent="." unique_id=411322876]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -75.10454, 11.327134, -0.39658928)
 script = ExtResource("2_dl8mf")
 
-[node name="Visual" type="MeshInstance3D" parent="SpawnPoint2" unique_id=761282827]
+[node name="Visual" type="MeshInstance3D" parent="SpawnPoint" unique_id=761282827]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5.600706, 0)
 mesh = SubResource("CylinderMesh_fhqol")
-skeleton = NodePath("../../SpawnPoint2")
 surface_material_override/0 = SubResource("StandardMaterial3D_iotdp")
 
-[node name="CompletionArea" type="Area3D" parent="." unique_id=1128701868]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 67.35045, 18.673347, 0.15912628)
-script = ExtResource("4_5g41i")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="CompletionArea" unique_id=1363992808]
-shape = SubResource("BoxShape3D_iotdp")
-
-[node name="VisualPortal" type="CSGCylinder3D" parent="CompletionArea" unique_id=1370723559]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
-radius = 2.5
-height = 5.0
-material = SubResource("StandardMaterial3D_nutv8")
-
 [node name="MobArea" type="Area3D" parent="." unique_id=612812031]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5006828, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.584974, 8.286554, 0)
 script = ExtResource("5_7fl83")
+mob_scenes = Array[PackedScene]([ExtResource("6_05pb0")])
 metadata/_custom_type_script = "uid://d0vdt7ix7m4qe"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="MobArea" unique_id=1448177156]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.9956055, 5.391964, 0)
 shape = SubResource("BoxShape3D_nutv8")
+debug_color = Color(0.8901961, 0.16078432, 0.69411767, 1)
 
-[node name="Zombie1" parent="MobArea" unique_id=140876207 instance=ExtResource("6_05pb0")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.636433, 3.8906293, -0.85848045)
+[node name="VoidArea" type="Area3D" parent="." unique_id=2072965366]
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("7_dl8mf")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="VoidArea" unique_id=644001568]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.847101, 0.35634804, 0)
+shape = SubResource("BoxShape3D_xcayt")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=412313783]
+transform = Transform3D(86.26653, 0, 0, 0, -3.9753147e-08, -15.168853, 0, 0.909446, -6.630516e-07, 0, 13.751759, -12.362715)
+mesh = SubResource("PlaneMesh_05pb0")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="." unique_id=1592529917]
+transform = Transform3D(86.26653, 0, 0, 0, -3.9753147e-08, 15.168853, 0, -0.909446, -6.630516e-07, 0, 13.751759, 12.21277)
+mesh = SubResource("PlaneMesh_05pb0")
+
+[node name="CompletionArea" type="Area3D" parent="." unique_id=1112116671]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 359.57156, 0)
+script = ExtResource("4_5g41i")
+metadata/_custom_type_script = "uid://dnhcro63fdcs7"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CompletionArea" unique_id=362057095]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 69.21936, -341.67197, 0)
+shape = SubResource("BoxShape3D_dl8mf")
+debug_color = Color(0.7982981, 0.21133438, 0.08460086, 1)

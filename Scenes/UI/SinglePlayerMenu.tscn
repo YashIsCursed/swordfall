@@ -1,8 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://singleplayer_menu"]
+[gd_scene format=3 uid="uid://oycstjq0mha"]
 
-[ext_resource type="Script" path="res://Scenes/UI/SinglePlayerMenu.gd" id="1_sp"]
+[ext_resource type="Script" uid="uid://7tfa5q0fr888" path="res://Scenes/UI/SinglePlayerMenu.gd" id="1_sp"]
+[ext_resource type="Texture2D" uid="uid://cem72wwl4nlrw" path="res://Assets/single Screen.png" id="2_u0wk1"]
 
-[node name="SinglePlayerMenu" type="Control"]
+[node name="SinglePlayerMenu" type="Control" unique_id=637138026]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -11,121 +12,161 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_sp")
 
-[node name="Background" type="ColorRect" parent="."]
+[node name="Background" type="ColorRect" parent="." unique_id=1413177426]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 color = Color(0.08, 0.08, 0.12, 1)
 
-[node name="PanelContainer" type="PanelContainer" parent="."]
+[node name="SingleScreen" type="Sprite2D" parent="." unique_id=1059553188]
+position = Vector2(957.3333, 545)
+scale = Vector2(0.8379629, 0.837963)
+texture = ExtResource("2_u0wk1")
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=1814783340]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -300.0
-offset_top = -250.0
-offset_right = 300.0
-offset_bottom = 250.0
+offset_left = -530.0
+offset_top = -321.0
+offset_right = 530.0
+offset_bottom = 278.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer" unique_id=1561225317]
 layout_mode = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer" unique_id=376364109]
 layout_mode = 2
 theme_override_constants/separation = 15
 
-[node name="TitleLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer"]
+[node name="TitleLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=1771685593]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.9, 0.7, 0.2, 1)
 theme_override_font_sizes/font_size = 32
 text = "Select World"
 horizontal_alignment = 1
 
-[node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=2048113314]
 custom_minimum_size = Vector2(0, 300)
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="WorldList" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer"]
+[node name="WorldList" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer" unique_id=109850013]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 10
 
-[node name="ButtonsRow" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
+[node name="ButtonsRow" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=442119158]
 layout_mode = 2
 theme_override_constants/separation = 15
 
-[node name="BtnBack" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/ButtonsRow"]
-custom_minimum_size = Vector2(120, 45)
-layout_mode = 2
-theme_override_font_sizes/font_size = 18
-text = "Back"
-
-[node name="Spacer" type="Control" parent="PanelContainer/MarginContainer/VBoxContainer/ButtonsRow"]
+[node name="Spacer3" type="Control" parent="PanelContainer/MarginContainer/VBoxContainer/ButtonsRow" unique_id=205193092]
+custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="BtnCreateWorld" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/ButtonsRow"]
-custom_minimum_size = Vector2(160, 45)
+[node name="BtnBack" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/ButtonsRow" unique_id=2127890430]
+custom_minimum_size = Vector2(352, 56)
 layout_mode = 2
 theme_override_font_sizes/font_size = 18
-text = "Create World"
 
-[node name="CreateWorldPopup" type="Panel" parent="."]
+[node name="Spacer" type="Control" parent="PanelContainer/MarginContainer/VBoxContainer/ButtonsRow" unique_id=54055551]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="BtnCreateWorld" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/ButtonsRow" unique_id=2064272199]
+custom_minimum_size = Vector2(352, 56)
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "
+"
+
+[node name="Spacer2" type="Control" parent="PanelContainer/MarginContainer/VBoxContainer/ButtonsRow" unique_id=1364501991]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="CreateWorldPopup" type="Panel" parent="." unique_id=157867335]
 visible = false
+modulate = Color(1.2742168, 1.2742168, 1.2742168, 1)
+self_modulate = Color(0, 0, 0, 1)
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -200.0
-offset_top = -100.0
-offset_right = 200.0
-offset_bottom = 100.0
+anchors_preset = -1
+anchor_left = 0.165
+anchor_top = 0.095000006
+anchor_right = 0.83500004
+anchor_bottom = 0.90500003
+offset_left = -80.80002
+offset_top = -36.600006
+offset_right = 80.79993
+offset_bottom = 36.599976
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CreateWorldPopup"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CreateWorldPopup" unique_id=1641396940]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 20.0
-offset_top = 20.0
-offset_right = -20.0
-offset_bottom = -20.0
+offset_left = 245.0
+offset_top = 213.0
+offset_right = -245.0
+offset_bottom = -213.0
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_constants/separation = 15
 
-[node name="Label" type="Label" parent="CreateWorldPopup/VBoxContainer"]
+[node name="Label" type="Label" parent="CreateWorldPopup/VBoxContainer" unique_id=283693982]
 layout_mode = 2
-theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(0.85490197, 0.50980395, 0.34117648, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 64
 text = "Create New World"
 horizontal_alignment = 1
 
-[node name="WorldNameInput" type="LineEdit" parent="CreateWorldPopup/VBoxContainer"]
+[node name="ColorRect" type="ColorRect" parent="CreateWorldPopup/VBoxContainer" unique_id=803322058]
 layout_mode = 2
+
+[node name="Spacer2" type="Control" parent="CreateWorldPopup/VBoxContainer" unique_id=545362167]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="WorldNameInput" type="LineEdit" parent="CreateWorldPopup/VBoxContainer" unique_id=113955300]
+custom_minimum_size = Vector2(0, 128)
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
 placeholder_text = "Enter world name..."
 
-[node name="ButtonsRow" type="HBoxContainer" parent="CreateWorldPopup/VBoxContainer"]
+[node name="Spacer" type="Control" parent="CreateWorldPopup/VBoxContainer" unique_id=307665695]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ButtonsRow" type="HBoxContainer" parent="CreateWorldPopup/VBoxContainer" unique_id=1831427657]
+custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="BtnCancel" type="Button" parent="CreateWorldPopup/VBoxContainer/ButtonsRow"]
+[node name="BtnCancel" type="Button" parent="CreateWorldPopup/VBoxContainer/ButtonsRow" unique_id=289024017]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 32
 text = "Cancel"
 
-[node name="BtnConfirm" type="Button" parent="CreateWorldPopup/VBoxContainer/ButtonsRow"]
+[node name="BtnConfirm" type="Button" parent="CreateWorldPopup/VBoxContainer/ButtonsRow" unique_id=198479427]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 32
 text = "Create"
