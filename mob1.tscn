@@ -1,0 +1,77 @@
+[gd_scene format=3 uid="uid://chbroltw6c8oj"]
+
+[ext_resource type="Script" uid="uid://chjnersbvviqb" path="res://Global/Classes/Entity/Mobs/Mobs.gd" id="1_mob"]
+[ext_resource type="Script" uid="uid://cpug1n0dsj0gv" path="res://Global/Classes/Entity/EntityStats.gd" id="2_stats"]
+[ext_resource type="Script" uid="uid://ckltykkeljui3" path="res://Global/Classes/Hurtbox.gd" id="3_hurtbox"]
+[ext_resource type="Script" uid="uid://dvkot0cf00nj8" path="res://Global/Classes/Hitbox.gd" id="4_hitbox"]
+
+[sub_resource type="Resource" id="Resource_stats"]
+script = ExtResource("2_stats")
+MaxHealth = 8
+ETId = 100
+Weight = 3.0
+JumpForce = 8.0
+MoveSpeed = 4.0
+Name = "Goblin"
+metadata/_custom_type_script = "uid://cpug1n0dsj0gv"
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_body"]
+radius = 0.35
+height = 1.4
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_body"]
+radius = 0.35
+height = 1.4
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_body"]
+albedo_color = Color(0.4, 0.6, 0.3, 1)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_hurtbox"]
+radius = 0.45
+height = 1.6
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_hitbox"]
+radius = 0.4
+
+[node name="Mob" type="CharacterBody3D" unique_id=1381554916]
+collision_layer = 5
+script = ExtResource("1_mob")
+detection_range = 12.0
+attack_range = 2.0
+chase_speed = 4.0
+wander_speed = 1.5
+props = SubResource("Resource_stats")
+metadata/_custom_type_script = "uid://chjnersbvviqb"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=926769599]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
+shape = SubResource("CapsuleShape3D_body")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=94443349]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
+mesh = SubResource("CapsuleMesh_body")
+surface_material_override/0 = SubResource("StandardMaterial3D_body")
+
+[node name="RayCast3D" type="RayCast3D" parent="." unique_id=83922733]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
+target_position = Vector3(0, 0, -10)
+collision_mask = 2
+
+[node name="Hurtbox" type="Area3D" parent="." unique_id=1265606335]
+collision_layer = 0
+collision_mask = 4
+script = ExtResource("3_hurtbox")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hurtbox" unique_id=1608435729]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
+shape = SubResource("CapsuleShape3D_hurtbox")
+
+[node name="Hitbox" type="Area3D" parent="." unique_id=889822919]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, -0.8)
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("4_hitbox")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hitbox" unique_id=1127757241]
+shape = SubResource("SphereShape3D_hitbox")

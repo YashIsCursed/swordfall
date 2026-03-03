@@ -1,0 +1,55 @@
+[gd_scene format=3 uid="uid://ct3366tgtyu00"]
+
+[ext_resource type="Script" uid="uid://cfgmyox06484o" path="res://Global/Classes/World/Level.gd" id="1_kb5ut"]
+[ext_resource type="PackedScene" uid="uid://cup31k4r6m5g0" path="res://Assets/level5/lev5.tscn" id="2_kb5ut"]
+[ext_resource type="Script" uid="uid://bgxd3jqsxvse5" path="res://Global/Classes/World/Wokers/SpawnPoint.gd" id="3_3toyu"]
+[ext_resource type="Script" uid="uid://dnhcro63fdcs7" path="res://Global/Classes/World/Wokers/CompletionArea.gd" id="4_pjvod"]
+[ext_resource type="Script" uid="uid://ctxg5wm25jpin" path="res://Global/Classes/World/Wokers/VoidArea.gd" id="5_pjvod"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ioxke"]
+size = Vector3(1, 52.796753, 78.43652)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_f6i8f"]
+size = Vector3(151.97949, 1, 37.22168)
+
+[node name="Level" type="Node3D" unique_id=1598427707]
+script = ExtResource("1_kb5ut")
+metadata/_custom_type_script = "uid://cfgmyox06484o"
+
+[node name="Environment" parent="." unique_id=1945159352 instance=ExtResource("2_kb5ut")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+
+[node name="SpawnPoint" type="Marker3D" parent="." unique_id=2041807951]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 60.22415, 11.562426, 0)
+script = ExtResource("3_3toyu")
+metadata/_custom_type_script = "uid://bgxd3jqsxvse5"
+
+[node name="CompletionArea" type="Area3D" parent="." unique_id=1833022545]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -66.57541, 28.226673, 0)
+script = ExtResource("4_pjvod")
+metadata/_custom_type_script = "uid://dnhcro63fdcs7"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CompletionArea" unique_id=1071763267]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.31256104, 0)
+shape = SubResource("BoxShape3D_ioxke")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=1805055552]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 2.3822021, 14.423443, -0.14819336)
+use_collision = true
+flip_faces = true
+size = Vector3(278.19824, 53.561752, 64.56836)
+
+[node name="SpotLight3D" type="SpotLight3D" parent="." unique_id=1083582798]
+transform = Transform3D(1, 0, 0, 0, -0.7071068, 0.7071067, 0, -0.7071067, -0.7071068, -6.6887264, 25.171474, -27.36171)
+light_color = Color(1, 0, 0, 1)
+light_energy = 5.229
+spot_range = 45.17453
+spot_angle = 65.092224
+
+[node name="VoidArea" type="Area3D" parent="." unique_id=893001870]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.897501, 0)
+script = ExtResource("5_pjvod")
+metadata/_custom_type_script = "uid://ctxg5wm25jpin"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="VoidArea" unique_id=582264838]
+shape = SubResource("BoxShape3D_f6i8f")

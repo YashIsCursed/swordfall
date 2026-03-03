@@ -1,0 +1,49 @@
+[gd_scene format=3 uid="uid://duqpayxmf4dwg"]
+
+[ext_resource type="PackedScene" uid="uid://cs30xy87ksc3a" path="res://Scenes/Entities/Player/player.tscn" id="1_r853g"]
+[ext_resource type="Script" uid="uid://cpug1n0dsj0gv" path="res://Global/Classes/Entity/EntityStats.gd" id="2_w0xb5"]
+[ext_resource type="PackedScene" uid="uid://chbroltw6c8oj" path="res://mob1.tscn" id="3_x7uuj"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_7p8af"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_wt5nl"]
+sky_material = SubResource("ProceduralSkyMaterial_7p8af")
+
+[sub_resource type="Environment" id="Environment_0b7v0"]
+background_mode = 2
+sky = SubResource("Sky_wt5nl")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="Resource" id="Resource_x7uuj"]
+script = ExtResource("2_w0xb5")
+ETId = 128
+Weight = 5.0
+JumpForce = 5.0
+Name = "Ysdh"
+metadata/_custom_type_script = "uid://cpug1n0dsj0gv"
+
+[node name="Node3D" type="Node3D" unique_id=519651010]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1896599854]
+environment = SubResource("Environment_0b7v0")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=680482976]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+
+[node name="player" parent="." unique_id=1630945160 instance=ExtResource("1_r853g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.7168519, 2.7089608, 5.001951)
+props = SubResource("Resource_x7uuj")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=78083645]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.7168519, 0.7089608, 0.6503554)
+use_collision = true
+size = Vector3(21.723633, 1, 14.530273)
+
+[node name="Mob" parent="." unique_id=2085576151 instance=ExtResource("3_x7uuj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 2.4014978, -2)
+visible = false
+collision_layer = 1
