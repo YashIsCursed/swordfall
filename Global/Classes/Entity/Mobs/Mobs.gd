@@ -10,6 +10,8 @@ enum MobState {
 	RETURNING
 }
 
+signal play_animation(action: String)
+
 @onready var ray: RayCast3D = $RayCast3D if has_node("RayCast3D") else null
 @onready var detection_area: Area3D = $DetectionArea if has_node("DetectionArea") else null
 @onready var nav_agent: NavigationAgent3D = $NavigationAgent3D if has_node("NavigationAgent3D") else null
@@ -37,10 +39,19 @@ func _ready() -> void:
 	super._ready()
 	spawn_position = global_position
 	
+	# Ensure the raycast can detect the player (collision_layer 2)
+	if ray:
+		ray.collision_mask = 2
+		
+	# Synchronize Hitbox damage with mob's attack_damage, if we have one
+	if hitbox:
+		hitbox.damage = attack_damage
+	
 	# Set up detection area if it doesn't exist
 	if not detection_area:
 		_create_detection_area()
 	else:
+		detection_area.collision_mask = 2
 		detection_area.body_entered.connect(_on_detection_area_body_entered)
 		detection_area.body_exited.connect(_on_detection_area_body_exited)
 	
@@ -184,7 +195,14 @@ func _state_returning(_delta: float) -> void:
 	look_at_target(spawn_position)
 
 func _change_state(new_state: MobState) -> void:
-	current_state = new_state
+	if current_state != new_state:
+		current_state = new_state
+		
+		match current_state:
+			MobState.IDLE:
+				play_animation.emit("idle")
+			MobState.WANDERING, MobState.CHASING, MobState.RETURNING:
+				play_animation.emit("Walk")
 
 func _set_random_wander_target() -> void:
 	var random_offset = Vector3(
@@ -198,11 +216,12 @@ func _set_random_wander_target() -> void:
 func _perform_attack() -> void:
 	can_attack_mob = false
 	
-	# Deal damage to target
-	if target and target.has_method("take_damage"):
+	# Deal damage to target directly ONLY if we don't have a physical Hitbox to do it for us
+	if not hitbox and target and target.has_method("take_damage"):
 		target.take_damage(attack_damage)
 	
-	# Attack animation could go here
+	# Attack animation
+	play_animation.emit("Attack")
 	attack()
 	
 	# Cooldown
@@ -211,6 +230,8 @@ func _perform_attack() -> void:
 
 func _on_death() -> void:
 	is_dead = true
+	
+	play_animation.emit("Death")
 	
 	# Play death effect
 	if mesh:
@@ -223,6 +244,8 @@ func _on_death() -> void:
 func _create_detection_area() -> void:
 	detection_area = Area3D.new()
 	detection_area.name = "DetectionArea"
+	detection_area.collision_layer = 0
+	detection_area.collision_mask = 2 # Ensure it detects player
 	
 	var collision_shape = CollisionShape3D.new()
 	var sphere_shape = SphereShape3D.new()

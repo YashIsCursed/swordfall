@@ -1,0 +1,136 @@
+[gd_scene format=3 uid="uid://bv20g1lrk884q"]
+
+[ext_resource type="Script" uid="uid://tsha0lc0uxvg" path="res://Scenes/Entities/Mobs/AnimatedMob.gd" id="1_anim_mob"]
+[ext_resource type="Script" uid="uid://cpug1n0dsj0gv" path="res://Global/Classes/Entity/EntityStats.gd" id="2_stats"]
+[ext_resource type="Script" uid="uid://ckltykkeljui3" path="res://Global/Classes/Hurtbox.gd" id="3_hurtbox"]
+[ext_resource type="Script" uid="uid://dvkot0cf00nj8" path="res://Global/Classes/Hitbox.gd" id="4_hitbox"]
+
+[sub_resource type="Resource" id="Resource_mobstats"]
+script = ExtResource("2_stats")
+Weight = 4.0
+MoveSpeed = 4.0
+Name = "Animated Blob"
+metadata/_custom_type_script = "uid://cpug1n0dsj0gv"
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_animob"]
+size = Vector3(1, 1.5, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_animob"]
+albedo_color = Color(0, 1, 0.5, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_animob"]
+material = SubResource("StandardMaterial3D_animob")
+size = Vector3(1, 1.5, 1)
+
+[sub_resource type="Animation" id="Animation_attack"]
+resource_name = "attack"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MeshInstance3D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.23333333, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0, -0.8), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_death"]
+resource_name = "death"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MeshInstance3D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(1, 1, 1), Vector3(1.2, 0.1, 1.2)]
+}
+
+[sub_resource type="Animation" id="Animation_idle"]
+resource_name = "idle"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MeshInstance3D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0.2, 0), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_walk"]
+resource_name = "walk"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MeshInstance3D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, -0.2), Vector3(0, 0, 0.2), Vector3(0, 0, -0.2)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_anim"]
+_data = {
+&"attack": SubResource("Animation_attack"),
+&"death": SubResource("Animation_death"),
+&"idle": SubResource("Animation_idle"),
+&"walk": SubResource("Animation_walk")
+}
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hurtbox"]
+size = Vector3(1.2, 1.7, 1.2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hitbox"]
+size = Vector3(1.5, 2, 1.5)
+
+[node name="AnimatedMob" type="CharacterBody3D" unique_id=971717390]
+script = ExtResource("1_anim_mob")
+props = SubResource("Resource_mobstats")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=456962043]
+shape = SubResource("BoxShape3D_animob")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=402344270]
+transform = Transform3D(1.138252, -0.02048155, 0, 0.063105315, 0.3694327, 0, 0, 0, 1.14, 0, 0, 0)
+mesh = SubResource("BoxMesh_animob")
+
+[node name="RayCast3D" type="RayCast3D" parent="." unique_id=1665981422]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+target_position = Vector3(0, 0, -10)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=2110912201]
+libraries/ = SubResource("AnimationLibrary_anim")
+
+[node name="Hurtbox" type="Area3D" parent="." unique_id=1547249875]
+collision_layer = 0
+collision_mask = 4
+script = ExtResource("3_hurtbox")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hurtbox" unique_id=612495486]
+shape = SubResource("BoxShape3D_hurtbox")
+
+[node name="Hitbox" type="Area3D" parent="." unique_id=1184734281]
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("4_hitbox")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hitbox" unique_id=1561471761]
+shape = SubResource("BoxShape3D_hitbox")

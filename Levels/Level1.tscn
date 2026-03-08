@@ -5,8 +5,11 @@
 [ext_resource type="Script" uid="uid://bgxd3jqsxvse5" path="res://Global/Classes/World/Wokers/SpawnPoint.gd" id="2_dl8mf"]
 [ext_resource type="Script" uid="uid://dnhcro63fdcs7" path="res://Global/Classes/World/Wokers/CompletionArea.gd" id="4_5g41i"]
 [ext_resource type="Script" uid="uid://d0vdt7ix7m4qe" path="res://Global/Classes/World/Wokers/MobArea.gd" id="5_7fl83"]
-[ext_resource type="PackedScene" uid="uid://c3n4w4q13fe3w" path="res://Scenes/Entities/Mobs/Zombie1.tscn" id="6_05pb0"]
+[ext_resource type="PackedScene" uid="uid://badf7thpklcvw" path="res://Scenes/Entities/Mobs/bossL1.tscn" id="5_dl8mf"]
 [ext_resource type="Script" uid="uid://ctxg5wm25jpin" path="res://Global/Classes/World/Wokers/VoidArea.gd" id="7_dl8mf"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_dl8mf"]
+size = Vector3(6, 2.77063, 24.994385)
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_fhqol"]
 top_radius = 0.3
@@ -23,11 +26,39 @@ size = Vector3(144.66174, 8.278717, 27.36621)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_05pb0"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_dl8mf"]
-size = Vector3(6, 2.77063, 24.994385)
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_dl8mf"]
+data = PackedVector3Array(1, 0, 1, -1, 0, 1, 1, 0, -1, -1, 0, 1, -1, 0, -1, 1, 0, -1)
 
-[node name="Level1" type="Node3D" unique_id=793073331]
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_xcayt"]
+data = PackedVector3Array(1, 0, 1, -1, 0, 1, 1, 0, -1, -1, 0, 1, -1, 0, -1, 1, 0, -1)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_5g41i"]
+data = PackedVector3Array(1, 0, 1, -1, 0, 1, 1, 0, -1, -1, 0, 1, -1, 0, -1, 1, 0, -1)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_7fl83"]
+data = PackedVector3Array(1, 0, 1, -1, 0, 1, 1, 0, -1, -1, 0, 1, -1, 0, -1, 1, 0, -1)
+
+[node name="Level1" type="Node3D" unique_id=793073331 node_paths=PackedStringArray("spawn_point")]
 script = ExtResource("1_w77jt")
+spawn_point = NodePath("SpawnPoint")
+
+[node name="CompletionArea" type="Area3D" parent="." unique_id=1112116671]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 76.33063, 19.93221, 0)
+script = ExtResource("4_5g41i")
+metadata/_custom_type_script = "uid://dnhcro63fdcs7"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CompletionArea" unique_id=362057095]
+shape = SubResource("BoxShape3D_dl8mf")
+debug_color = Color(0.7982981, 0.21133438, 0.08460086, 1)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="CompletionArea" unique_id=2026514274]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.189766, 0, 0)
+light_color = Color(1, 0, 0, 1)
+light_energy = 10.0
+light_volumetric_fog_energy = 14.392
+light_bake_mode = 0
+omni_range = 9.0
+omni_attenuation = 0.5
 
 [node name="Environment" parent="." unique_id=1614952162 instance=ExtResource("2_3anf8")]
 
@@ -36,14 +67,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -75.10454, 11.327134, -0.3965
 script = ExtResource("2_dl8mf")
 
 [node name="Visual" type="MeshInstance3D" parent="SpawnPoint" unique_id=761282827]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5.600706, 0)
+transform = Transform3D(0.25881907, 0, -0.9659258, 0, 1, 0, 0.9659258, 0, 0.25881907, 0, -5.6194353, 0)
+visible = false
 mesh = SubResource("CylinderMesh_fhqol")
 surface_material_override/0 = SubResource("StandardMaterial3D_iotdp")
 
 [node name="MobArea" type="Area3D" parent="." unique_id=612812031]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.584974, 8.286554, 0)
 script = ExtResource("5_7fl83")
-mob_scenes = Array[PackedScene]([ExtResource("6_05pb0")])
+mob_scenes = Array[PackedScene]([ExtResource("5_dl8mf")])
 metadata/_custom_type_script = "uid://d0vdt7ix7m4qe"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="MobArea" unique_id=1448177156]
@@ -63,16 +95,34 @@ shape = SubResource("BoxShape3D_xcayt")
 transform = Transform3D(86.26653, 0, 0, 0, -3.9753147e-08, -15.168853, 0, 0.909446, -6.630516e-07, 0, 13.751759, -12.362715)
 mesh = SubResource("PlaneMesh_05pb0")
 
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D" unique_id=1999578538]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D" unique_id=264128989]
+shape = SubResource("ConcavePolygonShape3D_dl8mf")
+
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="." unique_id=1592529917]
 transform = Transform3D(86.26653, 0, 0, 0, -3.9753147e-08, 15.168853, 0, -0.909446, -6.630516e-07, 0, 13.751759, 12.21277)
 mesh = SubResource("PlaneMesh_05pb0")
 
-[node name="CompletionArea" type="Area3D" parent="." unique_id=1112116671]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 359.57156, 0)
-script = ExtResource("4_5g41i")
-metadata/_custom_type_script = "uid://dnhcro63fdcs7"
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D2" unique_id=1839110584]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="CompletionArea" unique_id=362057095]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 69.21936, -341.67197, 0)
-shape = SubResource("BoxShape3D_dl8mf")
-debug_color = Color(0.7982981, 0.21133438, 0.08460086, 1)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D2/StaticBody3D" unique_id=1564782432]
+shape = SubResource("ConcavePolygonShape3D_xcayt")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="." unique_id=1882021163]
+transform = Transform3D(-7.350052e-07, 0.909446, -6.630516e-07, 0, -3.9753147e-08, -15.168853, -16.814959, -3.9753147e-08, 2.8982906e-14, -78.06127, 11.139114, 0)
+mesh = SubResource("PlaneMesh_05pb0")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D3" unique_id=1931682998]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D3/StaticBody3D" unique_id=118813557]
+shape = SubResource("ConcavePolygonShape3D_5g41i")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="." unique_id=653686369]
+transform = Transform3D(-7.649366e-07, -0.909446, 0, -7.649366e-07, 1.7376652e-15, 15.168852, -17.49971, 3.9753147e-08, -6.6305154e-07, 80.395, 13.752, 0)
+mesh = SubResource("PlaneMesh_05pb0")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D4" unique_id=1039535926]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D4/StaticBody3D" unique_id=1638280314]
+shape = SubResource("ConcavePolygonShape3D_7fl83")

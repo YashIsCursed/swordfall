@@ -28,7 +28,7 @@ albedo_color = Color(0.2, 0.4, 0.8, 1)
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_hurtbox"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_sword"]
-size = Vector3(0.1, 0.1, 1.2)
+size = Vector3(0.1, 0.1, 2)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sword"]
 albedo_color = Color(0.8, 0.8, 0.9, 1)
@@ -44,7 +44,7 @@ height = 0.25
 albedo_color = Color(0.4, 0.25, 0.15, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_sword_hitbox"]
-size = Vector3(1, 0.2, 3)
+size = Vector3(0.64819336, 0.49648437, 1.6166992)
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_sync"]
 properties/0/path = NodePath(".:position")
@@ -75,7 +75,7 @@ mesh = SubResource("CapsuleMesh_body")
 surface_material_override/0 = SubResource("StandardMaterial3D_body")
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1062160352]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.3688545, 2.3611655)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 cull_mask = 65535
 current = true
 
@@ -98,7 +98,7 @@ shape = SubResource("CapsuleShape3D_hurtbox")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, 0.8, 0)
 
 [node name="SwordMesh" type="MeshInstance3D" parent="SwordPivot" unique_id=73699005]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.7)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.7784502, -0.21998167, 0, -0.910797)
 mesh = SubResource("BoxMesh_sword")
 surface_material_override/0 = SubResource("StandardMaterial3D_sword")
 
@@ -107,16 +107,17 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.05)
 mesh = SubResource("CylinderMesh_handle")
 surface_material_override/0 = SubResource("StandardMaterial3D_handle")
 
-[node name="Hitbox" type="Area3D" parent="SwordPivot" unique_id=1398848161]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.8)
+[node name="Hitbox" type="Area3D" parent="." unique_id=1398848161]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, 0.8, -0.8)
 collision_layer = 4
 collision_mask = 0
 monitoring = false
 script = ExtResource("4_hitbox")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SwordPivot/Hitbox" unique_id=2069973505]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.39999998, 0, -0.74999994)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hitbox" unique_id=2069973505]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.39999998, 0.14824218, -0.05834955)
 shape = SubResource("BoxShape3D_sword_hitbox")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1665032451]
 replication_config = SubResource("SceneReplicationConfig_sync")
+visibility_update_mode = 1

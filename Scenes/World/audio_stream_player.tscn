@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://cjcbheif6jnah"]
+
+[ext_resource type="AudioStream" uid="uid://bsc5uipkg2fdi" path="res://Assets/Audio/Ambience/Natural Disaster, Earthquake, Rumble, Texture 09 SND13388.mp3" id="1_d1voi"]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" unique_id=1168514036]
+stream = ExtResource("1_d1voi")
+autoplay = true

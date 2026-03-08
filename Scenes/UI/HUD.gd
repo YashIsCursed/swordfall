@@ -11,6 +11,7 @@ extends Control
 @onready var player_list_panel: PanelContainer = $PlayerListPanel if has_node("PlayerListPanel") else null
 @onready var player_list_container: VBoxContainer = $PlayerListPanel/MarginContainer/VBoxContainer/PlayerList if has_node("PlayerListPanel") else null
 
+var damage_tint: ColorRect = null
 var player_ref: player = null
 var _player_entries: Dictionary = {} # peer_id -> Label
 
@@ -19,6 +20,9 @@ func _ready() -> void:
 		death_overlay.visible = false
 	if interaction_prompt:
 		interaction_prompt.visible = false
+	
+	# Create damage tint overlay
+	_create_damage_tint()
 	
 	# Create player list panel if it doesn't exist and we're in multiplayer
 	if GameData.is_multiplayer and not player_list_panel:
@@ -90,6 +94,7 @@ func setup_player(p: player) -> void:
 		# Connect to health updates
 		player_ref.props.update_health.connect(_on_health_updated)
 		player_ref.on_death.connect(_on_player_death)
+		player_ref.on_damage_taken.connect(_on_player_damage_taken)
 		
 		# Initial update
 		_update_health_display(player_ref.props.Health, player_ref.props.MaxHealth)
@@ -125,6 +130,31 @@ func hide_interaction_prompt() -> void:
 
 func _on_player_death() -> void:
 	show_death_screen()
+
+func _on_player_damage_taken(_amount: int) -> void:
+	_flash_damage_tint()
+
+func _create_damage_tint() -> void:
+	damage_tint = ColorRect.new()
+	damage_tint.name = "DamageTint"
+	damage_tint.color = Color(0.8, 0.0, 0.0, 0.35)
+	damage_tint.visible = false
+	damage_tint.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	
+	# Fill the entire screen
+	damage_tint.set_anchors_preset(Control.PRESET_FULL_RECT)
+	add_child(damage_tint)
+
+func _flash_damage_tint() -> void:
+	if not damage_tint:
+		return
+	
+	damage_tint.visible = true
+	damage_tint.modulate.a = 1.0
+	
+	var tween = create_tween()
+	tween.tween_property(damage_tint, "modulate:a", 0.0, 0.4).set_ease(Tween.EASE_OUT)
+	tween.tween_callback(func(): damage_tint.visible = false)
 
 func show_death_screen() -> void:
 	if death_overlay:

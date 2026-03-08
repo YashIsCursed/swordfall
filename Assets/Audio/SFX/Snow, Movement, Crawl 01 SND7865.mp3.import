@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cdtrp0e1p8og5"
+path="res://.godot/imported/Snow, Movement, Crawl 01 SND7865.mp3-c4549c03516eb2475d186dfbdc549e2f.mp3str"
+
+[deps]
+
+source_file="res://Assets/Audio/SFX/Snow, Movement, Crawl 01 SND7865.mp3"
+dest_files=["res://.godot/imported/Snow, Movement, Crawl 01 SND7865.mp3-c4549c03516eb2475d186dfbdc549e2f.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

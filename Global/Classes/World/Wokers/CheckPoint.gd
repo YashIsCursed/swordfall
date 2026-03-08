@@ -34,6 +34,10 @@ func _create_trigger_area() -> void:
 	trigger_area.monitorable = false
 	trigger_area.monitoring = true
 	
+	# Important: Make sure the area only looks at the player's collision layer (typically layer 2)
+	trigger_area.collision_layer = 0
+	trigger_area.collision_mask = 2 # Player mask
+	
 	var collision_shape = CollisionShape3D.new()
 	var box_shape = BoxShape3D.new()
 	box_shape.size = Vector3(3, 4, 3)
@@ -63,9 +67,9 @@ func activate(activating_player: player = null) -> void:
 	
 	# Save checkpoint
 	if activating_player:
-		activating_player.set_last_checkpoint(self)
+		activating_player.set_last_checkpoint(self )
 	
-	checkpoint_activated.emit(self)
+	checkpoint_activated.emit(self )
 	print("Checkpoint " + str(checkpoint_number) + " activated!")
 
 func deactivate() -> void:
@@ -77,7 +81,7 @@ func deactivate() -> void:
 		if mat:
 			mat.albedo_color = Color.GRAY
 	
-	checkpoint_deactivated.emit(self)
+	checkpoint_deactivated.emit(self )
 
 func teleport_entity(entity: Entity) -> void:
 	if entity:

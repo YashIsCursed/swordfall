@@ -55,6 +55,12 @@ func load_settings() -> void:
 		master_volume = config.get_value("audio", "master_volume", 1.0)
 		music_volume = config.get_value("audio", "music_volume", 0.8)
 		sfx_volume = config.get_value("audio", "sfx_volume", 1.0)
+	
+	# Apply loaded audio levels
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), linear_to_db(master_volume))
+	var sfx_bus = AudioServer.get_bus_index("SFX")
+	if sfx_bus >= 0:
+		AudioServer.set_bus_volume_db(sfx_bus, linear_to_db(sfx_volume))
 
 # World Save/Load Management
 func get_all_worlds() -> Array[String]:
@@ -71,7 +77,6 @@ func get_all_worlds() -> Array[String]:
 	return worlds
 
 func create_world(world_name: String) -> bool:
-	var world_path = SAVES_DIR + world_name + "/"
 	var dir = DirAccess.open("user://")
 	if dir:
 		var saves_dir = DirAccess.open(SAVES_DIR)

@@ -5,12 +5,16 @@
 [ext_resource type="Script" uid="uid://bgxd3jqsxvse5" path="res://Global/Classes/World/Wokers/SpawnPoint.gd" id="3_3toyu"]
 [ext_resource type="Script" uid="uid://dnhcro63fdcs7" path="res://Global/Classes/World/Wokers/CompletionArea.gd" id="4_pjvod"]
 [ext_resource type="Script" uid="uid://ctxg5wm25jpin" path="res://Global/Classes/World/Wokers/VoidArea.gd" id="5_pjvod"]
+[ext_resource type="Script" uid="uid://d0vdt7ix7m4qe" path="res://Global/Classes/World/Wokers/MobArea.gd" id="6_ioxke"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ioxke"]
 size = Vector3(1, 52.796753, 78.43652)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_f6i8f"]
 size = Vector3(151.97949, 1, 37.22168)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_31wo2"]
+size = Vector3(20.341797, 24.961365, 30.593994)
 
 [node name="Level" type="Node3D" unique_id=1598427707]
 script = ExtResource("1_kb5ut")
@@ -39,13 +43,6 @@ use_collision = true
 flip_faces = true
 size = Vector3(278.19824, 53.561752, 64.56836)
 
-[node name="SpotLight3D" type="SpotLight3D" parent="." unique_id=1083582798]
-transform = Transform3D(1, 0, 0, 0, -0.7071068, 0.7071067, 0, -0.7071067, -0.7071068, -6.6887264, 25.171474, -27.36171)
-light_color = Color(1, 0, 0, 1)
-light_energy = 5.229
-spot_range = 45.17453
-spot_angle = 65.092224
-
 [node name="VoidArea" type="Area3D" parent="." unique_id=893001870]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.897501, 0)
 script = ExtResource("5_pjvod")
@@ -53,3 +50,11 @@ metadata/_custom_type_script = "uid://ctxg5wm25jpin"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="VoidArea" unique_id=582264838]
 shape = SubResource("BoxShape3D_f6i8f")
+
+[node name="MobArea" type="Area3D" parent="." unique_id=1155809362]
+script = ExtResource("6_ioxke")
+metadata/_custom_type_script = "uid://d0vdt7ix7m4qe"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MobArea" unique_id=1982244516]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.670898, 13.865875, 0)
+shape = SubResource("BoxShape3D_31wo2")

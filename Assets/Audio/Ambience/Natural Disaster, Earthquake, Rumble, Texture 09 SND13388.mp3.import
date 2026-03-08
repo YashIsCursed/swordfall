@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bsc5uipkg2fdi"
+path="res://.godot/imported/Natural Disaster, Earthquake, Rumble, Texture 09 SND13388.mp3-c6a431f737c45a4db6849a8457147e2c.mp3str"
+
+[deps]
+
+source_file="res://Assets/Audio/Ambience/Natural Disaster, Earthquake, Rumble, Texture 09 SND13388.mp3"
+dest_files=["res://.godot/imported/Natural Disaster, Earthquake, Rumble, Texture 09 SND13388.mp3-c6a431f737c45a4db6849a8457147e2c.mp3str"]
+
+[params]
+
+loop=true
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

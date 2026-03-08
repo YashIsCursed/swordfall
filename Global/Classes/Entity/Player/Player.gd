@@ -40,6 +40,11 @@ func _ready() -> void:
 				props.Name = GameData.player_name
 		
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+		
+		# Connect to settings changes so it updates dynamically in game
+		if GameData and not GameData.settings_changed.is_connected(apply_settings):
+			GameData.settings_changed.connect(apply_settings)
+			
 	else:
 		# Disable camera for remote players
 		if Cam:
@@ -108,7 +113,7 @@ func _handle_movement(_delta: float) -> void:
 
 func _handle_actions() -> void:
 	# Attack
-	if Input.is_action_just_pressed("attack") or Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
+	if Input.is_action_just_pressed("attack") or Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT):
 		if can_attack:
 			perform_attack()
 	

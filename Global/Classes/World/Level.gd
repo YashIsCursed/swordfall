@@ -18,6 +18,9 @@ signal player_entered_completion_area
 @export_category("Mob Configuration")
 @export var mob_areas: Array[MobArea] = []
 
+@export_category("Boss Configuration")
+@export var boss: Mob
+
 @export_category("Completion")
 @export var completion_area: CompletionArea
 
@@ -41,6 +44,10 @@ func _ready() -> void:
 			if node is MobArea:
 				mob_areas.append(node)
 	
+	# Find boss named "BOSS"
+	if not boss:
+		boss = _find_node_by_name_recursive(self , "BOSS") as Mob
+	
 	# Find completion area
 	if not completion_area:
 		completion_area = _find_node_of_type("CompletionArea") as CompletionArea
@@ -48,6 +55,12 @@ func _ready() -> void:
 	# Connect completion area signal
 	if completion_area:
 		completion_area.player_entered.connect(_on_completion_area_entered)
+		
+		# Disable completion area until boss is killed
+		if boss:
+			completion_area.set_deferred("monitoring", false)
+			if not boss.tree_exited.is_connected(_on_boss_killed):
+				boss.tree_exited.connect(_on_boss_killed)
 
 func _find_node_of_type(type_name: String) -> Node:
 	for child in get_children():
@@ -57,7 +70,7 @@ func _find_node_of_type(type_name: String) -> Node:
 
 func _find_all_nodes_of_type(type_name: String) -> Array:
 	var nodes: Array = []
-	_find_nodes_recursive(self, type_name, nodes)
+	_find_nodes_recursive(self , type_name, nodes)
 	return nodes
 
 func _find_nodes_recursive(node: Node, type_name: String, result: Array) -> void:
@@ -111,3 +124,17 @@ func _on_completion_area_entered() -> void:
 	is_completed = true
 	player_entered_completion_area.emit()
 	level_completed.emit()
+
+func _find_node_by_name_recursive(node: Node, target_name: String) -> Node:
+	if node.name.to_upper() == target_name.to_upper() and node is Mob:
+		return node
+	for child in node.get_children():
+		var result = _find_node_by_name_recursive(child, target_name)
+		if result:
+			return result
+	return null
+
+func _on_boss_killed() -> void:
+	if completion_area:
+		completion_area.set_deferred("monitoring", true)
+		print("Boss killed! Completion Area active.")

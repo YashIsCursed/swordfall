@@ -1,0 +1,45 @@
+[gd_scene format=3 uid="uid://bycpgxgugnsjg"]
+
+[ext_resource type="Script" uid="uid://cda3p51y2g78q" path="res://Scenes/Entities/Mobs/bossL1.gd" id="1_iis34"]
+[ext_resource type="PackedScene" uid="uid://camwj58fh0mfh" path="res://Assets/mobs/level1boss/LVL 4 BOSS.fbx" id="2_6o52p"]
+[ext_resource type="Script" uid="uid://ckltykkeljui3" path="res://Global/Classes/Hurtbox.gd" id="3_44cqk"]
+[ext_resource type="Script" uid="uid://dvkot0cf00nj8" path="res://Global/Classes/Hitbox.gd" id="4_8tybn"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_cp4tb"]
+radius = 0.32226563
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_e4nbu"]
+size = Vector3(0.8564453, 0.4885254, 0.5732422)
+
+[node name="bossL1" type="CharacterBody3D" unique_id=1945974298]
+script = ExtResource("1_iis34")
+metadata/_custom_type_script = "uid://chjnersbvviqb"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1897179582]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 1.7157655e-09, 0, -0.03925214)
+shape = SubResource("CapsuleShape3D_cp4tb")
+
+[node name="Boss" parent="." unique_id=1102235546 instance=ExtResource("2_6o52p")]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -6.863062e-09, -1.085387, 0.05887821)
+
+[node name="RayCast3D" type="RayCast3D" parent="." unique_id=206649986]
+transform = Transform3D(1, 0, -1.7484555e-07, 0, 1, 0, 1.7484555e-07, 0, 1, 1.7157655e-09, 0.21971923, -0.03925214)
+target_position = Vector3(0, 0, -15)
+
+[node name="Hurtbox" type="Area3D" parent="." unique_id=93129928]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 1.7157655e-09, 0, -0.03925214)
+collision_layer = 0
+collision_mask = 4
+script = ExtResource("3_44cqk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hurtbox" unique_id=231857177]
+shape = SubResource("CapsuleShape3D_cp4tb")
+
+[node name="Hitbox" type="Area3D" parent="." unique_id=1619928079]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 1.7157655e-09, -0.35121185, -0.7237996)
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("4_8tybn")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hitbox" unique_id=1176059732]
+shape = SubResource("BoxShape3D_e4nbu")

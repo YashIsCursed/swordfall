@@ -15,46 +15,6 @@ A 3D Action RPG game with multiplayer support, developed in Godot 4.6.
 
 ---
 
-## 🗺️ Levels
-
-| # | Level | Theme | Difficulty | Enemies |
-|---|-------|-------|------------|---------|
-| 0 | **Forest Entrance** 🌲 | Bright outdoor forest | Easy | Goblin Scout |
-| 1 | **Cave Descent** 🕳️ | Dark underground cave | Medium | Cave Spider, Skeleton |
-| 2 | **Ancient Ruins** 🏛️ | Crumbling stone ruins | Medium-Hard | Orc, Wraith, Skeleton |
-| 3 | **Frozen Citadel** ❄️ | Icy fortress | Hard | Stone Golem, Wraith |
-| 4 | **Demon Throne** 👹 | Dark boss arena | BOSS | Orc, **Demon Lord** |
-
----
-
-## 👹 Enemies
-
-| Enemy | Health | Damage | Speed | Behavior |
-|-------|--------|--------|-------|----------|
-| **Goblin Scout** 🧟 | 8 | 2 | Fast | Quick attacks, weak |
-| **Cave Spider** 🕷️ | 6 | 2 | Very Fast | Rapid attacks, fragile |
-| **Skeleton Warrior** 💀 | 12 | 3 | Medium | Balanced fighter |
-| **Orc Brute** 👹 | 20 | 5 | Slow | Tanky, heavy hits |
-| **Shadow Wraith** 👻 | 10 | 4 | Medium | Long detection, ethereal |
-| **Stone Golem** 🗿 | 35 | 8 | Very Slow | Mini-boss, devastating |
-| **Demon Lord** 😈 | **100** | **12** | Medium | **FINAL BOSS** |
-
----
-
-## ⏳ Loading System
-
-The game features a professional loading screen with:
-- **Progress Bar** - Visual loading progress (0-100%)
-- **Status Messages** - Dynamic phase descriptions
-- **Rotating Tips** - Gameplay hints during loading
-- **Elapsed Time** - Shows time since loading started
-- **Freeze Detection** - Warning if loading takes >10 seconds
-- **Error Handling** - Clear error messages if loading fails
-
-This ensures users always know the game is loading (not crashed).
-
----
-
 ## Project Structure
 
 ```

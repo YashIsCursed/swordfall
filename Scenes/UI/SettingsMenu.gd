@@ -8,6 +8,8 @@ extends Control
 @onready var fov_value: Label = $PanelContainer/MarginContainer/VBoxContainer/GraphicsSection/FOVValue
 @onready var master_volume_slider: HSlider = $PanelContainer/MarginContainer/VBoxContainer/AudioSection/MasterVolumeSlider if has_node("PanelContainer/MarginContainer/VBoxContainer/AudioSection/MasterVolumeSlider") else null
 @onready var master_volume_value: Label = $PanelContainer/MarginContainer/VBoxContainer/AudioSection/MasterVolumeValue if has_node("PanelContainer/MarginContainer/VBoxContainer/AudioSection/MasterVolumeValue") else null
+@onready var sfx_volume_slider: HSlider = $PanelContainer/MarginContainer/VBoxContainer/AudioSection/SFXVolumeSlider if has_node("PanelContainer/MarginContainer/VBoxContainer/AudioSection/SFXVolumeSlider") else null
+@onready var sfx_volume_value: Label = $PanelContainer/MarginContainer/VBoxContainer/AudioSection/SFXVolumeValue if has_node("PanelContainer/MarginContainer/VBoxContainer/AudioSection/SFXVolumeValue") else null
 @onready var btn_save: Button = $PanelContainer/MarginContainer/VBoxContainer/ButtonsRow/BtnSave
 @onready var btn_back: Button = $PanelContainer/MarginContainer/VBoxContainer/ButtonsRow/BtnBack
 
@@ -27,6 +29,8 @@ func _ready() -> void:
 		fov_slider.value_changed.connect(_on_fov_changed)
 	if master_volume_slider:
 		master_volume_slider.value_changed.connect(_on_master_volume_changed)
+	if sfx_volume_slider:
+		sfx_volume_slider.value_changed.connect(_on_sfx_volume_changed)
 
 func _load_settings() -> void:
 	if player_name_input:
@@ -49,12 +53,21 @@ func _load_settings() -> void:
 	if master_volume_slider:
 		master_volume_slider.min_value = 0
 		master_volume_slider.max_value = 1
-		master_volume_slider.step = 0.1
+		master_volume_slider.step = 0.05
 		master_volume_slider.value = GameData.master_volume
 		_update_master_volume_label(GameData.master_volume)
+	
+	if sfx_volume_slider:
+		sfx_volume_slider.min_value = 0
+		sfx_volume_slider.max_value = 1
+		sfx_volume_slider.step = 0.05
+		sfx_volume_slider.value = GameData.sfx_volume
+		_update_sfx_volume_label(GameData.sfx_volume)
 
 func _on_sensitivity_changed(value: float) -> void:
 	_update_sensitivity_label(value)
+	GameData.mouse_sensitivity = value
+	GameData.settings_changed.emit()
 
 func _update_sensitivity_label(value: float) -> void:
 	if sensitivity_value:
@@ -62,6 +75,8 @@ func _update_sensitivity_label(value: float) -> void:
 
 func _on_fov_changed(value: float) -> void:
 	_update_fov_label(value)
+	GameData.field_of_view = value
+	GameData.settings_changed.emit()
 
 func _update_fov_label(value: float) -> void:
 	if fov_value:
@@ -69,10 +84,23 @@ func _update_fov_label(value: float) -> void:
 
 func _on_master_volume_changed(value: float) -> void:
 	_update_master_volume_label(value)
+	GameData.master_volume = value
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), linear_to_db(value))
 
 func _update_master_volume_label(value: float) -> void:
 	if master_volume_value:
 		master_volume_value.text = str(int(value * 100)) + "%"
+
+func _on_sfx_volume_changed(value: float) -> void:
+	_update_sfx_volume_label(value)
+	GameData.sfx_volume = value
+	var sfx_bus = AudioServer.get_bus_index("SFX")
+	if sfx_bus >= 0:
+		AudioServer.set_bus_volume_db(sfx_bus, linear_to_db(value))
+
+func _update_sfx_volume_label(value: float) -> void:
+	if sfx_volume_value:
+		sfx_volume_value.text = str(int(value * 100)) + "%"
 
 func _on_save_pressed() -> void:
 	# Save all settings
@@ -89,8 +117,13 @@ func _on_save_pressed() -> void:
 	
 	if master_volume_slider:
 		GameData.master_volume = master_volume_slider.value
-		# Apply audio volume
-		AudioServer.set_bus_volume_db(0, linear_to_db(GameData.master_volume))
+		AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), linear_to_db(GameData.master_volume))
+		
+	if sfx_volume_slider:
+		GameData.sfx_volume = sfx_volume_slider.value
+		var sfx_bus = AudioServer.get_bus_index("SFX")
+		if sfx_bus >= 0:
+			AudioServer.set_bus_volume_db(sfx_bus, linear_to_db(GameData.sfx_volume))
 	
 	GameData.save_settings()
 	

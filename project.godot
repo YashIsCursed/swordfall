@@ -15,16 +15,21 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 [application]
 
 config/name="Swordfall"
-config/description="A 3D Action RPG game with multiplayer support"
+config/description="A 3D Action RPG game"
 run/main_scene="res://Scenes/UI/MainMenu.tscn"
 config/features=PackedStringArray("4.6", "Forward Plus")
-config/icon="res://icon.svg"
+config/icon="uid://cfqd6qyhjffax"
+
+[audio]
+
+buses/default_bus_layout="uid://xnl182iwecqb"
 
 [autoload]
 
 GameData="*res://Global/Scripts/GameData.gd"
 SceneManager="*res://Global/Scripts/SceneManager.gd"
 MultiplayerManager="*res://Global/Classes/MultiplayerManager/MultiplayerManager.gd"
+GlobalAudioStreamPlayer="*uid://cjcbheif6jnah"
 
 [display]
 

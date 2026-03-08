@@ -9,6 +9,7 @@ signal on_death
 @onready var hitbox: Hitbox = $Hitbox if has_node("Hitbox") else null
 @onready var item_in_hand: Item = $Item if has_node("Item") else null
 @onready var mesh: MeshInstance3D = $MeshInstance3D if has_node("MeshInstance3D") else null
+@onready var health_label: Label3D = $HealthLabel if has_node("HealthLabel") else null
 
 @export_category("Details")
 @export var props: E_Stats
@@ -25,6 +26,22 @@ func _ready() -> void:
 		props = E_Stats.new()
 		props.Name = "Entity"
 		props.ETId = randi()
+	
+	# Initialize Health Label if not present
+	if not health_label:
+		health_label = Label3D.new()
+		health_label.name = "HealthLabel"
+		health_label.billboard = BaseMaterial3D.BILLBOARD_ENABLED
+		health_label.position = Vector3(0, 2.5, 0)
+		health_label.font_size = 64
+		health_label.outline_size = 12
+		health_label.pixel_size = 0.015
+		health_label.modulate = Color(1.0, 0.2, 0.2)
+		add_child(health_label)
+	
+	# Connect health signal
+	if props:
+		props.update_health.connect(_on_update_health)
 	
 	# Reset health to max for this new instance
 	props.reset_health()
@@ -57,12 +74,20 @@ func take_damage(amount: int) -> void:
 func _on_hurtbox_damage_taken(amount: int) -> void:
 	take_damage(amount)
 
+func _on_update_health(current: float, maximum: float) -> void:
+	if health_label and not is_dead:
+		health_label.text = str(int(current)) + " / " + str(int(maximum))
+
 func _on_entity_death() -> void:
 	if is_dead:
 		return
 	
 	is_dead = true
 	print(props.Name + " died!")
+	
+	if health_label:
+		health_label.visible = false
+		
 	on_death.emit()
 	_on_death()
 
@@ -89,7 +114,7 @@ func attack() -> void:
 		hitbox.set_deferred("monitoring", true)
 	
 	# Attack duration
-	await get_tree().create_timer(0.3).timeout
+	await get_tree().create_timer(0.5).timeout
 	
 	# Disable hitbox after attack
 	if hitbox:
@@ -103,4 +128,5 @@ func get_forward_direction() -> Vector3:
 func look_at_target(target_position: Vector3) -> void:
 	var look_pos = target_position
 	look_pos.y = global_position.y # Keep horizontal
-	look_at(look_pos)
+	if look_pos.distance_to(global_position) > 0.01:
+		look_at(look_pos, Vector3.UP, true)
