@@ -1,0 +1,129 @@
+[gd_scene format=3 uid="uid://b770ndta7653m"]
+
+[ext_resource type="PackedScene" uid="uid://cgh8q041fr8cd" path="res://Assets/level2/lev2.tscn" id="1_wcc2u"]
+[ext_resource type="Script" uid="uid://bgxd3jqsxvse5" path="res://Global/Classes/World/Wokers/SpawnPoint.gd" id="3_x7rwe"]
+[ext_resource type="Script" uid="uid://dnhcro63fdcs7" path="res://Global/Classes/World/Wokers/CompletionArea.gd" id="4_lf2mf"]
+[ext_resource type="PackedScene" uid="uid://chbroltw6c8oj" path="res://mob1.tscn" id="5_jglcl"]
+[ext_resource type="Script" uid="uid://ctxg5wm25jpin" path="res://Global/Classes/World/Wokers/VoidArea.gd" id="7_mbiy8"]
+[ext_resource type="Script" uid="uid://d0vdt7ix7m4qe" path="res://Global/Classes/World/Wokers/MobArea.gd" id="8_tweqo"]
+
+[sub_resource type="GDScript" id="GDScript_mocdr"]
+script/source = "# Level2.gd - Second demo level
+extends Level
+
+func _ready() -> void:
+	level_name = \"Forest Ruins\"
+	level_index = 2
+	super._ready()
+"
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_jglcl"]
+sky_top_color = Color(0.2275131, 0.29784882, 0.38795337, 1)
+sky_horizon_color = Color(0.63635814, 0.6202246, 0.6102898, 1)
+ground_bottom_color = Color(0.40123352, 0.26636368, 0.13652012, 1)
+ground_horizon_color = Color(0.63635814, 0.6202246, 0.6102898, 1)
+
+[sub_resource type="Sky" id="Sky_w0h0a"]
+sky_material = SubResource("ProceduralSkyMaterial_jglcl")
+
+[sub_resource type="Environment" id="Environment_m3ha0"]
+background_mode = 2
+sky = SubResource("Sky_w0h0a")
+tonemap_mode = 2
+ssao_enabled = true
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_nn734"]
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_506po"]
+data = PackedVector3Array(1, 0, 1, -1, 0, 1, 1, 0, -1, -1, 0, 1, -1, 0, -1, 1, 0, -1)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_v115i"]
+data = PackedVector3Array(1, 0, 1, -1, 0, 1, 1, 0, -1, -1, 0, 1, -1, 0, -1, 1, 0, -1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_wcc2u"]
+top_radius = 0.3
+height = 0.3
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nn734"]
+albedo_color = Color(0.2, 0.8, 0.3, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_nn734"]
+size = Vector3(469.71338, 19.062988, 33.27536)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_v115i"]
+size = Vector3(9, 6.3862305, 24.16211)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jglcl"]
+size = Vector3(0.4237671, 8.688202, 23.786133)
+
+[node name="Level2" type="Node3D" unique_id=793073331]
+script = SubResource("GDScript_mocdr")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1810568514]
+environment = SubResource("Environment_m3ha0")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=170255516]
+transform = Transform3D(-0.078459114, 0.86335576, -0.49845862, 0, 0.49999997, 0.86602545, 0.9969173, 0.06794759, -0.039229553, 0, 0, 0)
+light_color = Color(2.1168277, 2.1168277, 2.1168277, 1)
+light_energy = 0.5
+shadow_enabled = true
+
+[node name="Environment" parent="." unique_id=1723031586 instance=ExtResource("1_wcc2u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.0953522, 0, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1282448701]
+transform = Transform3D(223.79837, 0, 0, 0, -4.371139e-08, -41.13146, 0, 1, -1.7979131e-06, 0, 53.3882, -11.500053)
+mesh = SubResource("PlaneMesh_nn734")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D" unique_id=1740131193]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D" unique_id=2129502904]
+shape = SubResource("ConcavePolygonShape3D_506po")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="." unique_id=1964342681]
+transform = Transform3D(223.79837, 0, 0, 0, -4.371139e-08, 36.74775, 0, -1, -1.6062951e-06, 0, 53.522057, 11.000584)
+mesh = SubResource("PlaneMesh_nn734")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D2" unique_id=1309954183]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D2/StaticBody3D" unique_id=660983145]
+shape = SubResource("ConcavePolygonShape3D_v115i")
+
+[node name="SpawnPoint" type="Marker3D" parent="." unique_id=1738518331]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 195.51363, 67.66723, 0)
+script = ExtResource("3_x7rwe")
+metadata/_custom_type_script = "uid://bgxd3jqsxvse5"
+
+[node name="Visual" type="MeshInstance3D" parent="SpawnPoint" unique_id=129779321]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.46143723, 0)
+mesh = SubResource("CylinderMesh_wcc2u")
+surface_material_override/0 = SubResource("StandardMaterial3D_nn734")
+
+[node name="VoidArea" type="Area3D" parent="." unique_id=76411688]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 20.773987, 0)
+script = ExtResource("7_mbiy8")
+metadata/_custom_type_script = "uid://ctxg5wm25jpin"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="VoidArea" unique_id=1852381885]
+shape = SubResource("BoxShape3D_nn734")
+
+[node name="MobArea" type="Area3D" parent="." unique_id=1196135589]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 37.384636, 38.056408, 0)
+script = ExtResource("8_tweqo")
+mob_scenes = Array[PackedScene]([ExtResource("5_jglcl")])
+metadata/_custom_type_script = "uid://d0vdt7ix7m4qe"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MobArea" unique_id=447961987]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6668701, -0.6687012, 0)
+shape = SubResource("BoxShape3D_v115i")
+debug_color = Color(0.9372549, 0, 0.62352943, 1)
+
+[node name="CompletionArea" type="Area3D" parent="." unique_id=705369913]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -181.8072, 35.83328, 0)
+script = ExtResource("4_lf2mf")
+metadata/_custom_type_script = "uid://dnhcro63fdcs7"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CompletionArea" unique_id=2131741684]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.28811646, 2.3477325, -0.21554613)
+shape = SubResource("BoxShape3D_jglcl")
+debug_color = Color(0, 0.6, 0.69803923, 1)
