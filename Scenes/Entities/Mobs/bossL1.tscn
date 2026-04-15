@@ -2,24 +2,30 @@
 
 [ext_resource type="Script" uid="uid://cda3p51y2g78q" path="res://Scenes/Entities/Mobs/bossL1.gd" id="1_o1euq"]
 [ext_resource type="PackedScene" uid="uid://camwj58fh0mfh" path="res://Assets/mobs/level1boss/LVL 4 BOSS.fbx" id="2_cp4tb"]
+[ext_resource type="Script" uid="uid://cpug1n0dsj0gv" path="res://Global/Classes/Entity/EntityStats.gd" id="2_ebaay"]
 [ext_resource type="Script" uid="uid://ckltykkeljui3" path="res://Global/Classes/Hurtbox.gd" id="3_o1euq"]
 [ext_resource type="Script" uid="uid://dvkot0cf00nj8" path="res://Global/Classes/Hitbox.gd" id="4_ebaay"]
+
+[sub_resource type="Resource" id="Resource_e4nbu"]
+script = ExtResource("2_ebaay")
+metadata/_custom_type_script = "uid://cpug1n0dsj0gv"
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_cp4tb"]
 radius = 0.32226563
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_e4nbu"]
-size = Vector3(0.8564453, 0.4885254, 0.5732422)
+size = Vector3(2.0185547, 0.4885254, 0.786499)
 
 [node name="bossL1" type="CharacterBody3D" unique_id=1945974298]
 script = ExtResource("1_o1euq")
+props = SubResource("Resource_e4nbu")
 metadata/_custom_type_script = "uid://chjnersbvviqb"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1897179582]
 shape = SubResource("CapsuleShape3D_cp4tb")
 
 [node name="Boss" parent="." unique_id=1102235546 instance=ExtResource("2_cp4tb")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1334598, -0.098130345)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.61955965, -0.098130345)
 
 [node name="RayCast3D" type="RayCast3D" parent="." unique_id=206649986]
 target_position = Vector3(0, 0, -15)
@@ -38,5 +44,5 @@ collision_mask = 0
 script = ExtResource("4_ebaay")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Hitbox" unique_id=1176059732]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.21636987, 0.2848004)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.39565593, 1.1256205)
 shape = SubResource("BoxShape3D_e4nbu")

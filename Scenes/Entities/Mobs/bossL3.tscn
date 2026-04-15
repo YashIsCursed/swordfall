@@ -1,0 +1,48 @@
+[gd_scene format=3 uid="uid://dmybs6qnag3sp"]
+
+[ext_resource type="Script" uid="uid://cda3p51y2g78q" path="res://Scenes/Entities/Mobs/bossL1.gd" id="1_migp4"]
+[ext_resource type="Script" uid="uid://cpug1n0dsj0gv" path="res://Global/Classes/Entity/EntityStats.gd" id="2_sbhn2"]
+[ext_resource type="Script" uid="uid://ckltykkeljui3" path="res://Global/Classes/Hurtbox.gd" id="3_26hqo"]
+[ext_resource type="PackedScene" uid="uid://chqfy36lhhnxs" path="res://Assets/mobs/level3boss/LVL 3 BOSS.fbx" id="3_migp4"]
+[ext_resource type="Script" uid="uid://dvkot0cf00nj8" path="res://Global/Classes/Hitbox.gd" id="4_ivk8t"]
+
+[sub_resource type="Resource" id="Resource_e4nbu"]
+script = ExtResource("2_sbhn2")
+metadata/_custom_type_script = "uid://cpug1n0dsj0gv"
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_cp4tb"]
+radius = 0.5126953
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_e4nbu"]
+size = Vector3(2.0185547, 0.4885254, 0.786499)
+
+[node name="bossL3" type="CharacterBody3D" unique_id=1945974298]
+script = ExtResource("1_migp4")
+props = SubResource("Resource_e4nbu")
+metadata/_custom_type_script = "uid://chjnersbvviqb"
+
+[node name="Boss" parent="." unique_id=90394528 instance=ExtResource("3_migp4")]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, -1.0555311, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1897179582]
+shape = SubResource("CapsuleShape3D_cp4tb")
+
+[node name="RayCast3D" type="RayCast3D" parent="." unique_id=206649986]
+target_position = Vector3(0, 0, -15)
+
+[node name="Hurtbox" type="Area3D" parent="." unique_id=93129928]
+collision_layer = 0
+collision_mask = 4
+script = ExtResource("3_26hqo")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hurtbox" unique_id=231857177]
+shape = SubResource("CapsuleShape3D_cp4tb")
+
+[node name="Hitbox" type="Area3D" parent="." unique_id=1619928079]
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("4_ivk8t")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hitbox" unique_id=1176059732]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.39565593, 1.1256205)
+shape = SubResource("BoxShape3D_e4nbu")

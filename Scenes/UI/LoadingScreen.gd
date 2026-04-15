@@ -8,7 +8,6 @@ signal loading_complete
 @onready var progress_label: Label = $VBoxContainer/ProgressContainer/ProgressLabel
 @onready var status_label: Label = $VBoxContainer/StatusLabel
 @onready var tip_label: Label = $VBoxContainer/TipLabel
-@onready var spinner: Control = $VBoxContainer/SpinnerContainer/Spinner
 @onready var time_label: Label = $VBoxContainer/TimeContainer/TimeLabel
 @onready var pulse_indicator: Control = $VBoxContainer/PulseIndicator
 
@@ -40,7 +39,6 @@ const STATUS_MESSAGES: Dictionary = {
 var _start_time: float = 0.0
 var _current_progress: float = 0.0
 var _target_progress: float = 0.0
-var _spinner_rotation: float = 0.0
 var _pulse_scale: float = 1.0
 var _pulse_direction: float = 1.0
 var _tip_timer: float = 0.0
@@ -72,9 +70,7 @@ func _process(delta: float) -> void:
 	if not _is_loading:
 		return
 	
-	# Animate spinner
-	_animate_spinner(delta)
-	
+
 	# Animate pulse indicator
 	_animate_pulse(delta)
 	
@@ -93,12 +89,6 @@ func _process(delta: float) -> void:
 	# Check for freeze (no progress for 10 seconds)
 	_check_freeze()
 
-func _animate_spinner(delta: float) -> void:
-	if spinner:
-		_spinner_rotation += 180.0 * delta
-		if _spinner_rotation >= 360.0:
-			_spinner_rotation = 0.0
-		spinner.rotation_degrees = _spinner_rotation
 
 func _animate_pulse(delta: float) -> void:
 	if pulse_indicator:

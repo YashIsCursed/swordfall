@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://cpug1n0dsj0gv" path="res://Global/Classes/Entity/EntityStats.gd" id="2_stats"]
 [ext_resource type="Script" uid="uid://ckltykkeljui3" path="res://Global/Classes/Hurtbox.gd" id="3_hurtbox"]
 [ext_resource type="Script" uid="uid://dvkot0cf00nj8" path="res://Global/Classes/Hitbox.gd" id="4_hitbox"]
+[ext_resource type="ArrayMesh" uid="uid://bf7srfq5jn1ww" path="res://Assets/sword/Mech.obj" id="5_fcpig"]
 
 [sub_resource type="Resource" id="Resource_stats"]
 script = ExtResource("2_stats")
@@ -26,22 +27,6 @@ height = 1.8
 albedo_color = Color(0.2, 0.4, 0.8, 1)
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_hurtbox"]
-
-[sub_resource type="BoxMesh" id="BoxMesh_sword"]
-size = Vector3(0.1, 0.1, 2)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sword"]
-albedo_color = Color(0.8, 0.8, 0.9, 1)
-metallic = 0.9
-roughness = 0.2
-
-[sub_resource type="CylinderMesh" id="CylinderMesh_handle"]
-top_radius = 0.05
-bottom_radius = 0.06
-height = 0.25
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_handle"]
-albedo_color = Color(0.4, 0.25, 0.15, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_sword_hitbox"]
 size = Vector3(0.64819336, 0.49648437, 1.6166992)
@@ -96,17 +81,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
 shape = SubResource("CapsuleShape3D_hurtbox")
 
 [node name="SwordPivot" type="Node3D" parent="." unique_id=115992769]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, 0.8, 0)
+transform = Transform3D(1, -1.4215887e-08, 2.3762468e-09, 1.4215887e-08, 0.9456378, -0.3252216, 2.3762468e-09, 0.3252216, 0.9456378, 0.40000004, 0.95515496, -0.8763153)
 
-[node name="SwordMesh" type="MeshInstance3D" parent="SwordPivot" unique_id=73699005]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.7784502, -0.21998167, 0, -0.910797)
-mesh = SubResource("BoxMesh_sword")
-surface_material_override/0 = SubResource("StandardMaterial3D_sword")
-
-[node name="HandleMesh" type="MeshInstance3D" parent="SwordPivot" unique_id=581785567]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.05)
-mesh = SubResource("CylinderMesh_handle")
-surface_material_override/0 = SubResource("StandardMaterial3D_handle")
+[node name="Mech" type="MeshInstance3D" parent="SwordPivot" unique_id=1611178010]
+transform = Transform3D(-0.0050000004, 0.008660254, -6.5567074e-10, -0.008660254, -0.0050000004, -3.7855172e-10, -6.5567074e-10, 3.7855172e-10, 0.01, 0, 0, 0)
+mesh = ExtResource("5_fcpig")
+skeleton = NodePath("../..")
 
 [node name="Hitbox" type="Area3D" parent="." unique_id=1398848161]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, 0.8, -0.8)
@@ -116,7 +96,7 @@ monitoring = false
 script = ExtResource("4_hitbox")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Hitbox" unique_id=2069973505]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.39999998, 0.14824218, -0.05834955)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.39999995, 0.14824218, -0.8379181)
 shape = SubResource("BoxShape3D_sword_hitbox")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1665032451]

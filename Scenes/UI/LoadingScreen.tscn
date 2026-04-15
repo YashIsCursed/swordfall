@@ -1,6 +1,6 @@
-[gd_scene format=3 uid="uid://loading_screen"]
+[gd_scene format=3 uid="uid://b7sw6s03llcr3"]
 
-[ext_resource type="Script" path="res://Scenes/UI/LoadingScreen.gd" id="1_loading"]
+[ext_resource type="Script" uid="uid://qukc171ng1ft" path="res://Scenes/UI/LoadingScreen.gd" id="1_loading"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bg"]
 bg_color = Color(0.08, 0.09, 0.12, 1)
@@ -13,16 +13,13 @@ corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_progress_fill"]
-bg_color = Color(0.4, 0.7, 1.0, 1)
+bg_color = Color(0.4, 0.7, 1, 1)
 corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="Gradient" id="Gradient_spinner"]
-colors = PackedColorArray(0.4, 0.7, 1, 1, 0.6, 0.3, 0.9, 1)
-
-[node name="LoadingScreen" type="Control"]
+[node name="LoadingScreen" type="Control" unique_id=1308681654]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -31,7 +28,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_loading")
 
-[node name="Background" type="Panel" parent="."]
+[node name="Background" type="Panel" parent="." unique_id=1003256505]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -40,7 +37,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_bg")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1057335514]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -55,7 +52,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 20
 
-[node name="TitleLabel" type="Label" parent="VBoxContainer"]
+[node name="TitleLabel" type="Label" parent="VBoxContainer" unique_id=1308061313]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 48
@@ -63,64 +60,40 @@ text = "⚔️ SWORDFALL"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="SpinnerContainer" type="CenterContainer" parent="VBoxContainer"]
+[node name="SpinnerContainer" type="CenterContainer" parent="VBoxContainer" unique_id=943214228]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Spinner" type="Control" parent="VBoxContainer/SpinnerContainer"]
-custom_minimum_size = Vector2(60, 60)
-layout_mode = 2
-
-[node name="SpinnerBg" type="ColorRect" parent="VBoxContainer/SpinnerContainer/Spinner"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.4, 0.7, 1, 0.3)
-
-[node name="SpinnerFg" type="ColorRect" parent="VBoxContainer/SpinnerContainer/Spinner"]
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_right = 30.0
-offset_bottom = 30.0
-color = Color(0.4, 0.7, 1, 1)
-
-[node name="ProgressContainer" type="VBoxContainer" parent="VBoxContainer"]
+[node name="ProgressContainer" type="VBoxContainer" parent="VBoxContainer" unique_id=2067251472]
 layout_mode = 2
 theme_override_constants/separation = 8
 
-[node name="ProgressBar" type="ProgressBar" parent="VBoxContainer/ProgressContainer"]
+[node name="ProgressBar" type="ProgressBar" parent="VBoxContainer/ProgressContainer" unique_id=792877050]
 custom_minimum_size = Vector2(0, 24)
 layout_mode = 2
 theme_override_styles/background = SubResource("StyleBoxFlat_progress_bg")
 theme_override_styles/fill = SubResource("StyleBoxFlat_progress_fill")
-max_value = 100.0
-value = 0.0
 show_percentage = false
 
-[node name="ProgressLabel" type="Label" parent="VBoxContainer/ProgressContainer"]
+[node name="ProgressLabel" type="Label" parent="VBoxContainer/ProgressContainer" unique_id=1734867236]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.7, 0.8, 0.9, 1)
 theme_override_font_sizes/font_size = 20
 text = "0%"
 horizontal_alignment = 1
 
-[node name="StatusLabel" type="Label" parent="VBoxContainer"]
+[node name="StatusLabel" type="Label" parent="VBoxContainer" unique_id=409503197]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.6, 0.7, 0.8, 1)
 theme_override_font_sizes/font_size = 18
 text = "Initializing..."
 horizontal_alignment = 1
 
-[node name="PulseIndicator" type="Control" parent="VBoxContainer"]
+[node name="PulseIndicator" type="Control" parent="VBoxContainer" unique_id=1852134217]
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 
-[node name="Dot1" type="ColorRect" parent="VBoxContainer/PulseIndicator"]
+[node name="Dot1" type="ColorRect" parent="VBoxContainer/PulseIndicator" unique_id=1945986228]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -135,7 +108,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.4, 0.7, 1, 0.8)
 
-[node name="Dot2" type="ColorRect" parent="VBoxContainer/PulseIndicator"]
+[node name="Dot2" type="ColorRect" parent="VBoxContainer/PulseIndicator" unique_id=559530765]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -150,7 +123,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.5, 0.75, 1, 0.9)
 
-[node name="Dot3" type="ColorRect" parent="VBoxContainer/PulseIndicator"]
+[node name="Dot3" type="ColorRect" parent="VBoxContainer/PulseIndicator" unique_id=1827792754]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -165,17 +138,17 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.4, 0.7, 1, 0.8)
 
-[node name="TimeContainer" type="HBoxContainer" parent="VBoxContainer"]
+[node name="TimeContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=1842194151]
 layout_mode = 2
 alignment = 1
 
-[node name="TimeLabel" type="Label" parent="VBoxContainer/TimeContainer"]
+[node name="TimeLabel" type="Label" parent="VBoxContainer/TimeContainer" unique_id=1962500636]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.5, 0.55, 0.65, 1)
 theme_override_font_sizes/font_size = 14
 text = "Elapsed: 0.0s"
 
-[node name="TipLabel" type="Label" parent="VBoxContainer"]
+[node name="TipLabel" type="Label" parent="VBoxContainer" unique_id=718834322]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.6, 0.65, 0.75, 1)
 theme_override_font_sizes/font_size = 14
@@ -183,7 +156,7 @@ text = "💡 TIP: Use checkpoints to save your progress automatically."
 horizontal_alignment = 1
 autowrap_mode = 2
 
-[node name="BottomLabel" type="Label" parent="VBoxContainer"]
+[node name="BottomLabel" type="Label" parent="VBoxContainer" unique_id=1915739153]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.4, 0.45, 0.55, 1)
 theme_override_font_sizes/font_size = 12

@@ -4,7 +4,10 @@
 [ext_resource type="Script" uid="uid://fktn3l8m4ywv" path="res://Global/Classes/World/Manager/WorldManager.gd" id="2_wm"]
 [ext_resource type="PackedScene" uid="uid://cefmysmoajiho" path="res://Levels/Level1.tscn" id="3_fp5y2"]
 [ext_resource type="PackedScene" uid="uid://dxwftakvn22th" path="res://Scenes/UI/HUD.tscn" id="3_hud"]
+[ext_resource type="PackedScene" uid="uid://b770ndta7653m" path="res://Levels/Level2.tscn" id="3_kjkhe"]
+[ext_resource type="PackedScene" uid="uid://ciira86ujgglv" path="res://Levels/Level3.tscn" id="4_oiynf"]
 [ext_resource type="PackedScene" path="res://Scenes/UI/PauseMenu.tscn" id="4_pause"]
+[ext_resource type="PackedScene" uid="uid://ct3366tgtyu00" path="res://Levels/Level5.tscn" id="5_3q50u"]
 [ext_resource type="PackedScene" uid="uid://cs30xy87ksc3a" path="res://Scenes/Entities/Player/player.tscn" id="5_player"]
 
 [node name="GameWorld" type="Node3D" unique_id=484628261]
@@ -19,7 +22,7 @@ shadow_opacity = 0.8
 
 [node name="WorldManager" type="Node3D" parent="." unique_id=228918090]
 script = ExtResource("2_wm")
-levels = Array[PackedScene]([ExtResource("3_fp5y2")])
+levels = Array[PackedScene]([ExtResource("3_fp5y2"), ExtResource("3_kjkhe"), ExtResource("4_oiynf"), ExtResource("5_3q50u")])
 player_scene = ExtResource("5_player")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=559670287]

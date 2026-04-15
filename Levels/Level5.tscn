@@ -6,6 +6,10 @@
 [ext_resource type="Script" uid="uid://dnhcro63fdcs7" path="res://Global/Classes/World/Wokers/CompletionArea.gd" id="4_pjvod"]
 [ext_resource type="Script" uid="uid://ctxg5wm25jpin" path="res://Global/Classes/World/Wokers/VoidArea.gd" id="5_pjvod"]
 [ext_resource type="Script" uid="uid://d0vdt7ix7m4qe" path="res://Global/Classes/World/Wokers/MobArea.gd" id="6_ioxke"]
+[ext_resource type="PackedScene" uid="uid://badf7thpklcvw" path="res://Scenes/Entities/Mobs/bossL1.tscn" id="7_nijbd"]
+[ext_resource type="PackedScene" uid="uid://dc6crole7kjsw" path="res://Scenes/Entities/Mobs/bossL2.tscn" id="8_cg4ff"]
+[ext_resource type="PackedScene" uid="uid://dmybs6qnag3sp" path="res://Scenes/Entities/Mobs/bossL3.tscn" id="9_rss6v"]
+[ext_resource type="PackedScene" uid="uid://bycpgxgugnsjg" path="res://Scenes/Entities/Mobs/mob.tscn" id="10_x1euj"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ioxke"]
 size = Vector3(1, 52.796753, 78.43652)
@@ -18,6 +22,7 @@ size = Vector3(20.341797, 24.961365, 30.593994)
 
 [node name="Level" type="Node3D" unique_id=1598427707]
 script = ExtResource("1_kb5ut")
+level_name = "Castle"
 metadata/_custom_type_script = "uid://cfgmyox06484o"
 
 [node name="Environment" parent="." unique_id=1945159352 instance=ExtResource("2_kb5ut")]
@@ -38,10 +43,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.31256104, 0)
 shape = SubResource("BoxShape3D_ioxke")
 
 [node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=1805055552]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 2.3822021, 14.423443, -0.14819336)
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.29608154, 14.423443, -0.14819336)
 use_collision = true
 flip_faces = true
-size = Vector3(278.19824, 53.561752, 64.56836)
+size = Vector3(273.2019, 53.561752, 64.56836)
 
 [node name="VoidArea" type="Area3D" parent="." unique_id=893001870]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.897501, 0)
@@ -52,9 +57,13 @@ metadata/_custom_type_script = "uid://ctxg5wm25jpin"
 shape = SubResource("BoxShape3D_f6i8f")
 
 [node name="MobArea" type="Area3D" parent="." unique_id=1155809362]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.2690735, 0)
 script = ExtResource("6_ioxke")
+mob_scenes = Array[PackedScene]([ExtResource("7_nijbd"), ExtResource("8_cg4ff"), ExtResource("9_rss6v"), ExtResource("10_x1euj")])
+spawn_amount = 10
+max_mobs_alive = 10
 metadata/_custom_type_script = "uid://d0vdt7ix7m4qe"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="MobArea" unique_id=1982244516]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.670898, 13.865875, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.670898, 8.394384, 0)
 shape = SubResource("BoxShape3D_31wo2")

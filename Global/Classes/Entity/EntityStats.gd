@@ -8,7 +8,7 @@ signal dead
 signal update_inventory(item: Item, quantity: int)
 
 @export_category("Entity Props")
-@export var MaxHealth: int = 16
+@export var MaxHealth: int = 100
 @export var ETId: int
 @export var Inv: Inventory
 @export var Weight: float = 2.0

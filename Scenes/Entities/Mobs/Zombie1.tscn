@@ -1,14 +1,17 @@
 [gd_scene format=3 uid="uid://c3n4w4q13fe3w"]
 
 [ext_resource type="Script" uid="uid://chjnersbvviqb" path="res://Global/Classes/Entity/Mobs/Mobs.gd" id="1_0doni"]
-[ext_resource type="PackedScene" uid="uid://btwdgvxm7kp3m" path="res://Assets/Zombies/zombie.glb" id="2_g2oor"]
 [ext_resource type="Script" uid="uid://cpug1n0dsj0gv" path="res://Global/Classes/Entity/EntityStats.gd" id="2_jn8as"]
+[ext_resource type="PackedScene" uid="uid://camwj58fh0mfh" path="res://Assets/mobs/level1boss/LVL 4 BOSS.fbx" id="3_jn8as"]
+[ext_resource type="Script" uid="uid://dvkot0cf00nj8" path="res://Global/Classes/Hitbox.gd" id="4_xi82l"]
 
 [sub_resource type="Resource" id="Resource_xi82l"]
 script = ExtResource("2_jn8as")
 metadata/_custom_type_script = "uid://cpug1n0dsj0gv"
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_0doni"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_kht0d"]
 
 [node name="Zombie1" type="CharacterBody3D" unique_id=140876207]
 script = ExtResource("1_0doni")
@@ -18,8 +21,16 @@ metadata/_custom_type_script = "uid://chjnersbvviqb"
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=69539997]
 shape = SubResource("CapsuleShape3D_0doni")
 
-[node name="Sketchfab_Scene" parent="." unique_id=560305210 instance=ExtResource("2_g2oor")]
-transform = Transform3D(0.01, 0, 0, 0, 0.01, 0, 0, 0, 0.01, 0, -0.7776114, 0)
-
 [node name="RayCast3D" type="RayCast3D" parent="." unique_id=993264523]
 transform = Transform3D(1, 0, 0, 0, -2.1855695e-07, -1, 0, 5, -4.371139e-08, 0, 0.8628192, 0)
+
+[node name="Boss" parent="." unique_id=1487260434 instance=ExtResource("3_jn8as")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.003034, 0)
+
+[node name="Hitbox" type="Area3D" parent="." unique_id=106181016]
+script = ExtResource("4_xi82l")
+metadata/_custom_type_script = "uid://dvkot0cf00nj8"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hitbox" unique_id=864368080]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.41117465, 1.719121)
+shape = SubResource("BoxShape3D_kht0d")

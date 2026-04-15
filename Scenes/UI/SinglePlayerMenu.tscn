@@ -73,12 +73,12 @@ layout_mode = 2
 theme_override_constants/separation = 15
 
 [node name="Spacer3" type="Control" parent="PanelContainer/MarginContainer/VBoxContainer/ButtonsRow" unique_id=205193092]
-custom_minimum_size = Vector2(100, 0)
+custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="BtnBack" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/ButtonsRow" unique_id=2127890430]
-custom_minimum_size = Vector2(352, 56)
+custom_minimum_size = Vector2(300, 56)
 layout_mode = 2
 theme_override_font_sizes/font_size = 18
 
@@ -86,8 +86,16 @@ theme_override_font_sizes/font_size = 18
 layout_mode = 2
 size_flags_horizontal = 3
 
+[node name="Spacer4" type="Control" parent="PanelContainer/MarginContainer/VBoxContainer/ButtonsRow" unique_id=847201061]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Spacer5" type="Control" parent="PanelContainer/MarginContainer/VBoxContainer/ButtonsRow" unique_id=983021455]
+layout_mode = 2
+size_flags_horizontal = 3
+
 [node name="BtnCreateWorld" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/ButtonsRow" unique_id=2064272199]
-custom_minimum_size = Vector2(352, 56)
+custom_minimum_size = Vector2(300, 56)
 layout_mode = 2
 theme_override_font_sizes/font_size = 18
 text = "
